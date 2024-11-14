@@ -2,8 +2,8 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "ZIl Money API Doc",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "zilapilogo.png",
+    "light": "zilapilogo.png"
   },
   "favicon": "/favicon.svg",
   "colors": {
