@@ -8,8 +8,8 @@
   "favicon": "/zilfav.png",
   "colors": {
     "primary": "#415a80",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "light": "#415a80",
+    "dark": "#007fa5",
     "anchors": {
       "from": "#0D9373",
       "to": "#07C983"
