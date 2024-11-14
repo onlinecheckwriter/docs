@@ -29,6 +29,13 @@
         "authentication"
       ]
     },
+      "navigation": [
+    {
+      "group": "Bank Account",
+      "pages": [
+        "Bank/create",
+      ]
+    },
 
     {
       "group": "Endpoint Examples",
