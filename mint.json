@@ -33,7 +33,7 @@
     {
       "group": "Bank Account",
       "pages": [
-        "Bank/create",
+        "Bank Account/get",
       ]
     },
 
