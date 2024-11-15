@@ -29,14 +29,6 @@
         "authentication"
       ]
     },
-      "navigation": [
-    {
-      "group": "Bank Account",
-      "pages": [
-        "Bank Account/get"
-      ]
-    },
-
     {
       "group": "Endpoint Examples",
       "pages": [
