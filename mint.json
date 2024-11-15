@@ -36,7 +36,14 @@
         "api-reference/endpoint/create",
         "api-reference/endpoint/delete"
       ]
+    },
+       {
+      "group": "Bank Account",
+      "pages": [
+     "bank-account/endpoints/create"
+      ]
     }
+    
   ],
   "footerSocials": {
     "x": "https://x.com/mintlify",
