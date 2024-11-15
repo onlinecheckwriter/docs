@@ -33,7 +33,7 @@
     {
       "group": "Bank Account",
       "pages": [
-        "Bank Account/get",
+        "Bank Account/get"
       ]
     },
 
