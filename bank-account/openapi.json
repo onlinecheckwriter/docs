@@ -319,14 +319,7 @@
                         "city",
                         "state",
                         "zip",
-                        "bankName",
-                        "bankRoutingNumber",
-                        "bankAddress1",
-                        "bankCity",
-                        "bankState",
-                        "bankZip",
-                        "bankIdentity",
-                        "templateId"
+                        "bankRoutingNumber"
                       ]
                     }
                   }
