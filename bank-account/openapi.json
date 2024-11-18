@@ -198,7 +198,7 @@
                         "accountNumber": { "type": "string" },
                         "addressLine1": { "type": "string" },
                         "addressLine2": { "type": "string", "nullable": true },
-                        "phone": { "type": "string" },
+                        "phone": { "type": "string", "nullable": true },
                         "city": { "type": "string" },
                         "state": { "type": "string" },
                         "zip": { "type": "string" },
@@ -264,18 +264,60 @@
                   "type": "object",
                   "properties": {
                     "success": { "type": "boolean", "example": true },
-                    "message": { "type": "string", "example": "Bank accounts created successfully." },
+                    "message": { "type": "string", "example": "Successfully created" },
                     "data": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": { "type": "string" },
-                          "name": { "type": "string" },
-                          "accountNumber": { "type": "string" },
-                          "bankName": { "type": "string" },
-                          "createdDate": { "type": "string", "format": "date" }
+                      "type": "object",
+                      "properties": {
+                        "bankAccounts": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "bankAccountId": { "type": "string" },
+                              "name": { "type": "string" },
+                              "nickName": { "type": "string" },
+                              "accountNumber": { "type": "string" },
+                              "isVerified": { "type": "boolean" },
+                              "bankId": { "type": "string" },
+                              "addressLine1": { "type": "string" },
+                              "addressLine2": { "type": "string", "nullable": true },
+                              "city": { "type": "string" },
+                              "state": { "type": "string" },
+                              "zip": { "type": "string" },
+                              "phone": { "type": "string", "nullable": true },
+                              "walletId": { "type": "string" },
+                              "createdDate": { "type": "string", "format": "date" }
+                            }
+                          }
                         }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "successResponse": {
+                    "value": {
+                      "success": true,
+                      "message": "Successfully created",
+                      "data": {
+                        "bankAccounts": [
+                          {
+                            "bankAccountId": "Q36gYVewBOP7Gdx7bDn",
+                            "name": "test",
+                            "nickName": "test",
+                            "accountNumber": "123423432",
+                            "isVerified": false,
+                            "bankId": "kWx8ePPO30eK2Xz",
+                            "addressLine1": "1 tet",
+                            "addressLine2": null,
+                            "city": "cty",
+                            "state": "state",
+                            "zip": "234244",
+                            "phone": null,
+                            "walletId": "8c6d6d4a-6fa8-4a68-9039-27cd3625f39e",
+                            "createdDate": "11-18-2024"
+                          }
+                        ]
                       }
                     }
                   }
