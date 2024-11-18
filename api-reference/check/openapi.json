@@ -73,7 +73,7 @@
                           "description": "Key-value pairs for custom elements."
                         }
                       },
-                      "required": ["bankAccountId", "amount", "payeeId"]
+                      "required": ["bankAccountId"]
                     }
                   }
                 }
@@ -102,45 +102,6 @@
                           "element1": "first class tracking",
                           "element2": "test sender"
                         }
-                      },
-                      {
-                        "bankAccountId": "{{bankAccountId}}",
-                        "payeeId": "{{payeeId}}",
-                        "categoryId": "",
-                        "serialNumber": "1002",
-                        "issueDate": "2020-10-25",
-                        "amount": 200,
-                        "memo": "First, Test check using API...",
-                        "note": "",
-                        "accountNumber": "458757",
-                        "invoiceNumber": "2546",
-                        "noSign": false,
-                        "noAmount": false,
-                        "noDate": false,
-                        "noPayee": false,
-                        "voucher": {
-                          "voucherNumber": "1000",
-                          "memo": "Test Memo",
-                          "date": "2020-10-20",
-                          "voucherItems": [
-                            {
-                              "invoiceNumber": "858",
-                              "name": "Product 1",
-                              "description": "Product Description 1",
-                              "quantity": 10,
-                              "unitCost": 5,
-                              "total": 200
-                            },
-                            {
-                              "invoiceNumber": "540",
-                              "name": "Product 2",
-                              "description": "Product Description 2",
-                              "quantity": null,
-                              "unitCost": null,
-                              "total": 350
-                            }
-                          ]
-                        }
                       }
                     ]
                   }
@@ -158,15 +119,35 @@
                   "type": "object",
                   "properties": {
                     "success": { "type": "boolean", "example": true },
-                    "message": { "type": "string", "example": "Checks created successfully." },
+                    "message": { "type": "string", "example": "Successfully created" },
                     "data": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "checkId": { "type": "string" },
-                          "amount": { "type": "number" },
-                          "status": { "type": "string" }
+                      "type": "object",
+                      "properties": {
+                        "checks": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "checkId": { "type": "string" },
+                              "serialNumber": { "type": "string" },
+                              "amount": { "type": "string" },
+                              "status": { "type": "number" },
+                              "bankAccount": {
+                                "type": "object",
+                                "properties": {
+                                  "bankAccountId": { "type": "string" },
+                                  "name": { "type": "string" }
+                                }
+                              },
+                              "payee": {
+                                "type": "object",
+                                "properties": {
+                                  "payeeId": { "type": "string" },
+                                  "name": { "type": "string" }
+                                }
+                              }
+                            }
+                          }
                         }
                       }
                     }
@@ -183,7 +164,7 @@
                   "type": "object",
                   "properties": {
                     "success": { "type": "boolean", "example": false },
-                    "errorMsg": { "type": "string" }
+                    "errorMsg": { "type": "string", "example": "Validation failed for check input." }
                   }
                 },
                 "examples": {
@@ -196,7 +177,7 @@
                   "invalidAmount": {
                     "value": {
                       "success": false,
-                      "errorMsg": "The amount must be a positive number."
+                      "errorMsg": "The amount must be greater than 0."
                     }
                   }
                 }
