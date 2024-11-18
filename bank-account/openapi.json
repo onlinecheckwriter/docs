@@ -275,6 +275,156 @@
         ],
         "tags": ["Bank Accounts"]
       }
+    },
+    "/bankAccounts": {
+      "post": {
+        "summary": "Create a new bank account",
+        "description": "Allows you to create one or more bank accounts.",
+        "requestBody": {
+          "description": "Payload to create new bank accounts.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "bankAccounts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": { "type": "string" },
+                        "nickName": { "type": "string" },
+                        "accountNumber": { "type": "string" },
+                        "addressLine1": { "type": "string" },
+                        "addressLine2": { "type": "string", "nullable": true },
+                        "phone": { "type": "string" },
+                        "city": { "type": "string" },
+                        "state": { "type": "string" },
+                        "zip": { "type": "string" },
+                        "bankName": { "type": "string" },
+                        "bankRoutingNumber": { "type": "string" },
+                        "bankAddress1": { "type": "string" },
+                        "bankCity": { "type": "string" },
+                        "bankState": { "type": "string" },
+                        "bankZip": { "type": "string" },
+                        "bankIdentity": { "type": "string" },
+                        "templateId": { "type": "string" }
+                      },
+                      "required": [
+                        "name",
+                        "nickName",
+                        "accountNumber",
+                        "addressLine1",
+                        "city",
+                        "state",
+                        "zip",
+                        "bankName",
+                        "bankRoutingNumber",
+                        "bankAddress1",
+                        "bankCity",
+                        "bankState",
+                        "bankZip",
+                        "bankIdentity",
+                        "templateId"
+                      ]
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "exampleRequest": {
+                  "value": {
+                    "bankAccounts": [
+                      {
+                        "name": "Chase Bank",
+                        "nickName": "Chase Bank",
+                        "accountNumber": "10029841",
+                        "addressLine1": "Test Address Line 1",
+                        "addressLine2": "Test Address Line 2",
+                        "phone": "900244400",
+                        "city": "San Jose",
+                        "state": "CA",
+                        "zip": "95113",
+                        "bankName": "Demo Bank",
+                        "bankRoutingNumber": "021000021",
+                        "bankAddress1": "Address 1",
+                        "bankCity": "Dallas",
+                        "bankState": "CA",
+                        "bankZip": "75001",
+                        "bankIdentity": "58756985",
+                        "templateId": "qx5NZwjymj2n3l6"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Bank account(s) created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "message": { "type": "string", "example": "Bank accounts created successfully." },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "string" },
+                          "name": { "type": "string" },
+                          "accountNumber": { "type": "string" },
+                          "bankName": { "type": "string" },
+                          "createdDate": { "type": "string", "format": "date" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request payload.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "message": { "type": "string", "example": "Invalid request payload." }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Unauthenticated." }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Bank Accounts"]
+      }
     }
   },
   "components": {
