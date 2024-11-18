@@ -171,6 +171,112 @@
         ],
         "tags": ["Payees"]
       }
+    },
+     "/payees/{payeeId}": {
+      "get": {
+        "summary": "Retrieve a payee",
+        "description": "Details of an existing payee.",
+        "parameters": [
+          {
+            "name": "payeeId",
+            "in": "path",
+            "description": "The ID of the payee to retrieve",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with the details of a payee.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "payeeId": { "type": "string" },
+                        "name": { "type": "string" },
+                        "nickName": { "type": "string" },
+                        "company": { "type": "string" },
+                        "email": { "type": "string" },
+                        "phone": { "type": "string" },
+                        "address1": { "type": "string" },
+                        "address2": { "type": "string", "nullable": true },
+                        "city": { "type": "string" },
+                        "state": { "type": "string" },
+                        "zip": { "type": "string" },
+                        "country": { "type": "string" }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "exampleResponse": {
+                    "value": {
+                      "success": true,
+                      "data": {
+                        "payeeId": "RJ6qGAAxJPGE1rD",
+                        "name": "John Doe",
+                        "nickName": "JD",
+                        "company": "John's Services",
+                        "email": "john.doe@example.com",
+                        "phone": "+1234567890",
+                        "address1": "123 Main St",
+                        "address2": "Apt 4B",
+                        "city": "Springfield",
+                        "state": "IL",
+                        "zip": "62704",
+                        "country": "US"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Payee not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": { "type": "string", "example": "Payee not found." }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Unauthenticated." }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Payees"]
+      }
     }
   },
   "components": {
