@@ -157,10 +157,17 @@
             }
           },
           "401": {
-            "description": "Unauthorized. Invalid or missing Bearer Token."
-          },
-          "400": {
-            "description": "Bad Request. Invalid parameters provided."
+            "description": "Unauthorized. Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Unauthenticated." }
+                  }
+                }
+              }
+            }
           }
         },
         "security": [
@@ -250,12 +257,12 @@
             }
           },
           "404": {
-            "description": "Bank account not found.",
+            "description": "This bank account not found",
             "content": {
               "application/json": {
                 "example": {
                   "success": false,
-                  "message": "Bank account not found."
+                  "errorMsg": "This bank account not found"
                 }
               }
             }
