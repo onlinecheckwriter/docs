@@ -169,8 +169,9 @@
           }
         ],
         "tags": ["Bank Accounts"]
-      },
-      "/bankAccounts/{bankAccountId}": {
+      }
+    },
+    "/bankAccounts/{bankAccountId}": {
       "get": {
         "summary": "Retrieve a single bank account",
         "description": "Fetch the details of a single bank account using its unique ID.",
