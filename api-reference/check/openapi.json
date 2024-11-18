@@ -1,0 +1,225 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Online Check Writer API",
+    "description": "API documentation for creating checks.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://staging.api.ocw.sebipay.com/api/v3",
+      "description": "Staging Server"
+    }
+  ],
+  "paths": {
+    "/checks": {
+      "post": {
+        "summary": "Create Checks",
+        "description": "Allows the creation of one or more checks in a single request. Advanced stubs can be included by passing a `voucher` object.",
+        "requestBody": {
+          "description": "Payload to create one or more checks.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "checks": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "bankAccountId": { "type": "string", "description": "Must be a valid bank account ID." },
+                        "payeeId": { "type": "string", "description": "Must be a valid payee ID. Optional if `noPayee` is true." },
+                        "categoryId": { "type": "string", "nullable": true, "description": "Category ID, if applicable." },
+                        "serialNumber": { "type": "string", "description": "Custom serial number for the check." },
+                        "issueDate": { "type": "string", "format": "date", "description": "Issue date of the check." },
+                        "amount": { "type": "number", "description": "Amount of the check. Required unless `noAmount` is true." },
+                        "memo": { "type": "string", "description": "Memo for the check." },
+                        "note": { "type": "string", "description": "Internal note for the check." },
+                        "accountNumber": { "type": "string", "description": "Account number associated with the check." },
+                        "invoiceNumber": { "type": "string", "description": "Invoice number associated with the check." },
+                        "noSign": { "type": "boolean", "description": "If true, creates the check without a signature. Defaults to false." },
+                        "noAmount": { "type": "boolean", "description": "If true, creates the check without an amount. Defaults to false." },
+                        "noDate": { "type": "boolean", "description": "If true, creates the check without a date. Defaults to false." },
+                        "noPayee": { "type": "boolean", "description": "If true, creates the check without a payee. Defaults to false." },
+                        "voucherId": { "type": "string", "nullable": true, "description": "Voucher ID, if applicable. Ignored if `voucher` is passed." },
+                        "voucher": {
+                          "type": "object",
+                          "nullable": true,
+                          "properties": {
+                            "voucherNumber": { "type": "string", "description": "Voucher number." },
+                            "memo": { "type": "string", "description": "Memo associated with the voucher." },
+                            "date": { "type": "string", "format": "date", "description": "Voucher date." },
+                            "voucherItems": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "invoiceNumber": { "type": "string", "description": "Invoice number associated with the voucher item." },
+                                  "name": { "type": "string", "description": "Name of the voucher item." },
+                                  "description": { "type": "string", "description": "Description of the voucher item." },
+                                  "quantity": { "type": "number", "nullable": true, "description": "Quantity of the voucher item." },
+                                  "unitCost": { "type": "number", "nullable": true, "description": "Unit cost of the voucher item." },
+                                  "total": { "type": "number", "description": "Total amount for the voucher item." }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "customElements": {
+                          "type": "object",
+                          "additionalProperties": { "type": "string" },
+                          "description": "Key-value pairs for custom elements."
+                        }
+                      },
+                      "required": ["bankAccountId", "amount", "payeeId"]
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "createMultipleChecks": {
+                  "value": {
+                    "checks": [
+                      {
+                        "bankAccountId": "{{bankAccountId}}",
+                        "payeeId": "{{payeeId}}",
+                        "categoryId": "",
+                        "serialNumber": "1001",
+                        "issueDate": "2020-10-25",
+                        "amount": 100,
+                        "memo": "First, Test check using API",
+                        "note": "",
+                        "accountNumber": "458756",
+                        "invoiceNumber": "2545",
+                        "noSign": false,
+                        "noAmount": false,
+                        "noDate": false,
+                        "noPayee": false,
+                        "voucherId": null,
+                        "customElements": {
+                          "element1": "first class tracking",
+                          "element2": "test sender"
+                        }
+                      },
+                      {
+                        "bankAccountId": "{{bankAccountId}}",
+                        "payeeId": "{{payeeId}}",
+                        "categoryId": "",
+                        "serialNumber": "1002",
+                        "issueDate": "2020-10-25",
+                        "amount": 200,
+                        "memo": "First, Test check using API...",
+                        "note": "",
+                        "accountNumber": "458757",
+                        "invoiceNumber": "2546",
+                        "noSign": false,
+                        "noAmount": false,
+                        "noDate": false,
+                        "noPayee": false,
+                        "voucher": {
+                          "voucherNumber": "1000",
+                          "memo": "Test Memo",
+                          "date": "2020-10-20",
+                          "voucherItems": [
+                            {
+                              "invoiceNumber": "858",
+                              "name": "Product 1",
+                              "description": "Product Description 1",
+                              "quantity": 10,
+                              "unitCost": 5,
+                              "total": 200
+                            },
+                            {
+                              "invoiceNumber": "540",
+                              "name": "Product 2",
+                              "description": "Product Description 2",
+                              "quantity": null,
+                              "unitCost": null,
+                              "total": 350
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Check(s) created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "message": { "type": "string", "example": "Checks created successfully." },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "checkId": { "type": "string" },
+                          "amount": { "type": "number" },
+                          "status": { "type": "string" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation failed or invalid data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": { "type": "string" }
+                  }
+                },
+                "examples": {
+                  "missingBankAccount": {
+                    "value": {
+                      "success": false,
+                      "errorMsg": "The bankAccountId field is required."
+                    }
+                  },
+                  "invalidAmount": {
+                    "value": {
+                      "success": false,
+                      "errorMsg": "The amount must be a positive number."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Checks"]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Online Check Writer API",
-    "description": "API documentation for retrieving payees.",
+    "description": "API documentation for payees.",
     "version": "1.0.0"
   },
   "servers": [

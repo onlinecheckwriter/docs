@@ -44,6 +44,12 @@
          "api-reference/payee/get-payee",
          "api-reference/payee/create-payee"
        ]
+    },
+    {
+       "group": "Check",
+       "pages": [
+         "api-reference/check/create-check"
+       ]
     }
   ],
   "footerSocials": {
