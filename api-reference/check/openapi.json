@@ -543,7 +543,7 @@
                   "type": "object",
                   "properties": {
                     "success": { "type": "boolean", "example": false },
-                    "errorMsg": { "type": "string", "example": "Check not found." }
+                    "errorMsg": { "type": "string", "example": "This check not found" }
                   }
                 }
               }
