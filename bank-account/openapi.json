@@ -106,7 +106,7 @@
                   }
                 },
                 "examples": {
-                  "success": {
+                  "detailedResponse": {
                     "value": {
                       "success": true,
                       "data": {
@@ -131,8 +131,23 @@
                             "phone": null,
                             "createdDate": "11-12-2024",
                             "webUrl": "https://staging.web.ocw.sebipay.com/manage/bank-accounts/index?id=3Ez2Ggn8JP4qQgA"
+                          },
+                          {
+                            "bankAccountId": "KmQaMdjZl2XoGzLxbWy",
+                            "name": "Fayas",
+                            "nickName": "Fayass Fayass Fayass",
+                            "accountNumber": "123456",
+                            "isVerified": false,
+                            "bankId": "pzo54xJ6ZbeaXmL",
+                            "addressLine1": "1 Infinite Loop",
+                            "addressLine2": null,
+                            "city": "Cupertino",
+                            "state": "CA",
+                            "zip": "95014",
+                            "phone": null,
+                            "createdDate": "09-21-2024",
+                            "webUrl": "https://staging.web.ocw.sebipay.com/manage/bank-accounts/index?id=QaMdjZl2XoGzLxb"
                           }
-                          // Other accounts...
                         ]
                       }
                     }
