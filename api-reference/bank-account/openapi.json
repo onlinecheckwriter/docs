@@ -1,0 +1,502 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Online Check Writer API",
+    "description": "API documentation for retrieving bank accounts.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://staging.api.ocw.sebipay.com/api/v3",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/bankAccounts": {
+      "get": {
+        "summary": "Retrieve all bank accounts",
+        "description": "List all bank account records.",
+        "parameters": [
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "Number of records that you want to receive in the response. By default, 10 records will be listed.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "For navigating through pages. By default, the first page will be listed.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "term",
+            "in": "query",
+            "description": "Filter records using any keywords.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with a list of bank accounts.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "meta": {
+                          "type": "object",
+                          "properties": {
+                            "total": {
+                              "type": "integer",
+                              "example": 1446
+                            },
+                            "currentPage": {
+                              "type": "integer",
+                              "example": 1
+                            },
+                            "perPage": {
+                              "type": "integer",
+                              "example": 10
+                            }
+                          }
+                        },
+                        "bankAccounts": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "bankAccountId": { "type": "string" },
+                              "name": { "type": "string" },
+                              "nickName": { "type": "string" },
+                              "accountNumber": { "type": "string" },
+                              "isVerified": { "type": "boolean" },
+                              "bankId": { "type": "string" },
+                              "addressLine1": { "type": "string" },
+                              "addressLine2": { "type": "string", "nullable": true },
+                              "city": { "type": "string" },
+                              "state": { "type": "string" },
+                              "zip": { "type": "string" },
+                              "phone": { "type": "string", "nullable": true },
+                              "createdDate": { "type": "string", "format": "date" },
+                              "webUrl": { "type": "string", "format": "uri" }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "detailedResponse": {
+                    "value": {
+                      "success": true,
+                      "data": {
+                        "meta": {
+                          "total": 14,
+                          "currentPage": 1,
+                          "perPage": 2
+                        },
+                        "bankAccounts": [
+                          {
+                            "bankAccountId": "XP3Ez2Ggn8JP4qQgAYd",
+                            "name": "Demo Bank 1333",
+                            "nickName": "company1333334",
+                            "accountNumber": "34234234234222",
+                            "isVerified": false,
+                            "bankId": "6VoW41bgPVG589l",
+                            "addressLine1": "Test Address1",
+                            "addressLine2": null,
+                            "city": "Downey",
+                            "state": "CA",
+                            "zip": "90242",
+                            "phone": null,
+                            "createdDate": "11-12-2024",
+                            "webUrl": "https://staging.web.ocw.sebipay.com/manage/bank-accounts/index?id=3Ez2Ggn8JP4qQgA"
+                          },
+                          {
+                            "bankAccountId": "KmQaMdjZl2XoGzLxbWy",
+                            "name": "Fayas",
+                            "nickName": "Fayass Fayass Fayass",
+                            "accountNumber": "123456",
+                            "isVerified": false,
+                            "bankId": "pzo54xJ6ZbeaXmL",
+                            "addressLine1": "1 Infinite Loop",
+                            "addressLine2": null,
+                            "city": "Cupertino",
+                            "state": "CA",
+                            "zip": "95014",
+                            "phone": null,
+                            "createdDate": "09-21-2024",
+                            "webUrl": "https://staging.web.ocw.sebipay.com/manage/bank-accounts/index?id=QaMdjZl2XoGzLxb"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Unauthenticated." }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Bank Accounts"]
+      },
+      "post": {
+        "summary": "Create a new bank account",
+        "description": "Allows you to create one or more bank accounts.",
+        "requestBody": {
+          "description": "Payload to create new bank accounts.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "bankAccounts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": { "type": "string" },
+                        "nickName": { "type": "string" },
+                        "accountNumber": { "type": "string" },
+                        "addressLine1": { "type": "string" },
+                        "addressLine2": { "type": "string", "nullable": true },
+                        "phone": { "type": "string", "nullable": true },
+                        "city": { "type": "string" },
+                        "state": { "type": "string" },
+                        "zip": { "type": "string" },
+                        "bankName": { "type": "string" },
+                        "bankRoutingNumber": { "type": "string" },
+                        "bankAddress1": { "type": "string" },
+                        "bankCity": { "type": "string" },
+                        "bankState": { "type": "string" },
+                        "bankZip": { "type": "string" },
+                        "bankIdentity": { "type": "string" },
+                        "templateId": { "type": "string" }
+                      },
+                      "required": [
+                        "name",
+                        "nickName",
+                        "accountNumber",
+                        "addressLine1",
+                        "city",
+                        "state",
+                        "zip",
+                        "bankRoutingNumber"
+                      ]
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "exampleRequest": {
+                  "value": {
+                    "bankAccounts": [
+                      {
+                        "name": "Chase Bank",
+                        "nickName": "Chase Bank",
+                        "accountNumber": "10029841",
+                        "addressLine1": "Test Address Line 1",
+                        "addressLine2": "Test Address Line 2",
+                        "phone": "900244400",
+                        "city": "San Jose",
+                        "state": "CA",
+                        "zip": "95113",
+                        "bankName": "Demo Bank",
+                        "bankRoutingNumber": "021000021",
+                        "bankAddress1": "Address 1",
+                        "bankCity": "Dallas",
+                        "bankState": "CA",
+                        "bankZip": "75001",
+                        "bankIdentity": "58756985",
+                        "templateId": "qx5NZwjymj2n3l6"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Bank account(s) created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "message": { "type": "string", "example": "Successfully created" },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "bankAccounts": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "bankAccountId": { "type": "string" },
+                              "name": { "type": "string" },
+                              "nickName": { "type": "string" },
+                              "accountNumber": { "type": "string" },
+                              "isVerified": { "type": "boolean" },
+                              "bankId": { "type": "string" },
+                              "addressLine1": { "type": "string" },
+                              "addressLine2": { "type": "string", "nullable": true },
+                              "city": { "type": "string" },
+                              "state": { "type": "string" },
+                              "zip": { "type": "string" },
+                              "phone": { "type": "string", "nullable": true },
+                              "walletId": { "type": "string" },
+                              "createdDate": { "type": "string", "format": "date" }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "successResponse": {
+                    "value": {
+                      "success": true,
+                      "message": "Successfully created",
+                      "data": {
+                        "bankAccounts": [
+                          {
+                            "bankAccountId": "Q36gYVewBOP7Gdx7bDn",
+                            "name": "test",
+                            "nickName": "test",
+                            "accountNumber": "123423432",
+                            "isVerified": false,
+                            "bankId": "kWx8ePPO30eK2Xz",
+                            "addressLine1": "1 tet",
+                            "addressLine2": null,
+                            "city": "cty",
+                            "state": "state",
+                            "zip": "234244",
+                            "phone": null,
+                            "walletId": "8c6d6d4a-6fa8-4a68-9039-27cd3625f39e",
+                            "createdDate": "11-18-2024"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request payload.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "message": { "type": "string", "example": "Invalid request payload." }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Unauthenticated." }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation failed. Unprocessable entity.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": { "type": "string" },
+                    "bankAccountId": { "type": "string", "nullable": true }
+                  }
+                },
+                "examples": {
+                  "duplicateBankAccount": {
+                    "value": {
+                      "success": false,
+                      "errorMsg": "Duplicate bank account on item 1",
+                      "bankAccountId": "Q36gYVewBOP7Gdx7bDn"
+                    }
+                  },
+                  "validationErrorWithoutBankAccountId": {
+                    "value": {
+                      "success": false,
+                      "errorMsg": "Required field is missing"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Bank Accounts"]
+      }
+    },
+    "/bankAccounts/{bankAccountId}": {
+      "get": {
+        "summary": "Retrieve a single bank account",
+        "description": "Fetch the details of a single bank account using its unique ID.",
+        "parameters": [
+          {
+            "name": "bankAccountId",
+            "in": "path",
+            "description": "The unique identifier of the bank account.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with the details of a single bank account.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "bankId": { "type": "string" },
+                        "name": { "type": "string" },
+                        "nickName": { "type": "string" },
+                        "accountNumber": { "type": "string" },
+                        "addressLine1": { "type": "string" },
+                        "addressLine2": { "type": "string", "nullable": true },
+                        "city": { "type": "string" },
+                        "state": { "type": "string" },
+                        "zip": { "type": "string" },
+                        "phone": { "type": "string", "nullable": true },
+                        "isVerified": { "type": "boolean" },
+                        "createdDate": { "type": "string", "format": "date" },
+                        "bankAccountId": { "type": "string" },
+                        "RoutingNumber": { "type": "string" },
+                        "webUrl": { "type": "string", "format": "uri" }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "exampleResponse": {
+                    "value": {
+                      "success": true,
+                      "data": {
+                        "id": "3Ez2Ggn8JP4qQgA",
+                        "bankId": "6VoW41bgPVG589l",
+                        "name": "Demo Bank 1333",
+                        "nickName": "company1333334",
+                        "accountNumber": "34234234234222",
+                        "addressLine1": "Test Address1",
+                        "addressLine2": null,
+                        "city": "Downey",
+                        "state": "CA",
+                        "zip": "90242",
+                        "phone": null,
+                        "isVerified": false,
+                        "createdDate": "11-12-2024",
+                        "bankAccountId": "XP3Ez2Ggn8JP4qQgAYd",
+                        "RoutingNumber": "011000015",
+                        "webUrl": "https://staging.web.ocw.sebipay.com/manage/bank-accounts/index?id=3Ez2Ggn8JP4qQgA"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "This bank account not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "errorMsg": "This bank account not found"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Bank Accounts"]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

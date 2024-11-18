@@ -40,9 +40,9 @@
     {
        "group": "Bank Account",
        "pages": [
-         "bank-account/endpoints/get-bank-accounts",
-         "bank-account/endpoints/get-bank-account",
-         "bank-account/endpoints/create-bank-account"
+         "api-reference/bank-account/get-bank-accounts",
+         "api-reference/bank-account/get-bank-account",
+         "api-reference/bank-account/create-bank-account"
        ]
     }
     
