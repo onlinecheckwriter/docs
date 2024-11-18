@@ -420,6 +420,156 @@
         ],
         "tags": ["Checks"]
       }
+    },
+    "/checks/{checkId}": {
+      "get": {
+        "summary": "Retrieve a check",
+        "description": "Fetch the details of a single check using its unique ID.",
+        "parameters": [
+          {
+            "name": "checkId",
+            "in": "path",
+            "description": "The unique ID of the check to retrieve.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with the details of the check.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "checkId": { "type": "string" },
+                        "serialNumber": { "type": "string" },
+                        "amount": { "type": "number" },
+                        "amountInWord": { "type": "string" },
+                        "date": { "type": "string", "format": "date" },
+                        "status": { "type": "integer" },
+                        "memo": { "type": "string", "nullable": true },
+                        "accountNumber": { "type": "string", "nullable": true },
+                        "invoiceNumber": { "type": "string", "nullable": true },
+                        "referenceId": { "type": "string", "nullable": true },
+                        "bankAccount": {
+                          "type": "object",
+                          "properties": {
+                            "bankAccountId": { "type": "string" },
+                            "name": { "type": "string" }
+                          }
+                        },
+                        "payee": {
+                          "type": "object",
+                          "properties": {
+                            "payeeId": { "type": "string" },
+                            "name": { "type": "string" }
+                          }
+                        },
+                        "checkStatus": {
+                          "type": "object",
+                          "properties": {
+                            "status": { "type": "integer" },
+                            "description": { "type": "string" }
+                          }
+                        },
+                        "checkStatements": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "status": { "type": "string" },
+                              "date": { "type": "string", "format": "date" },
+                              "time": { "type": "string" }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "exampleResponse": {
+                    "value": {
+                      "success": true,
+                      "data": {
+                        "checkId": "kWx8eP3l60GK2Xz",
+                        "serialNumber": "2",
+                        "amount": 12.00,
+                        "amountInWord": "twelve",
+                        "date": "2024-11-18",
+                        "status": 0,
+                        "memo": null,
+                        "accountNumber": null,
+                        "invoiceNumber": null,
+                        "referenceId": null,
+                        "bankAccount": {
+                          "bankAccountId": "6gYVewBOP7Gdx7b",
+                          "name": "Demo Bank"
+                        },
+                        "payee": {
+                          "payeeId": "1ZoVelyDaQj8pwb",
+                          "name": "John Doe"
+                        },
+                        "checkStatus": {
+                          "status": 0,
+                          "description": "New"
+                        },
+                        "checkStatements": [
+                          {
+                            "status": "created",
+                            "date": "2024-11-18",
+                            "time": "04:15 pm"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Check not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": { "type": "string", "example": "Check not found." }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Unauthenticated." }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Checks"]
+      }
     }
   },
   "components": {
