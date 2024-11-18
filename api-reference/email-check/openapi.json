@@ -1,0 +1,190 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Online Check Writer API",
+    "description": "API documentation for creating email checks.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://app.onlinecheckwriter.com/api/v3",
+      "description": "Production Server"
+    }
+  ],
+  "paths": {
+    "/emailchecks": {
+      "post": {
+        "summary": "Create Email Check",
+        "description": "Allows the creation of one or more email checks in a single request.",
+        "requestBody": {
+          "description": "Payload to create one or more email checks.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "emailChecks": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "checkId": {
+                          "type": "string",
+                          "description": "Must be a check ID."
+                        },
+                        "payeeEmail": {
+                          "type": "string",
+                          "description": "Payee email address. Required if no email exists on the associated payee."
+                        },
+                        "enableSmsInform": {
+                          "type": "boolean",
+                          "description": "Notify the payee through SMS. Defaults to `false`."
+                        },
+                        "payeePhone": {
+                          "type": "string",
+                          "description": "Payee phone number. Required if `enableSmsInform` is `true` and no phone exists on the associated payee."
+                        },
+                        "sendAttachment": {
+                          "type": "integer",
+                          "description": "Possible values: `0` or `1`. If `1`, sends added attachments along with the check."
+                        }
+                      },
+                      "required": ["checkId"]
+                    }
+                  }
+                }
+              },
+              "examples": {
+                "createEmailCheck": {
+                  "value": {
+                    "emailChecks": [
+                      {
+                        "checkId": "RJ6qGAAxJPGE1rD",
+                        "payeeEmail": "payee@example.com",
+                        "enableSmsInform": true,
+                        "payeePhone": "+1234567890",
+                        "sendAttachment": 1
+                      },
+                      {
+                        "checkId": "dJM5Gbk3LQeY329",
+                        "payeeEmail": "another@example.com",
+                        "enableSmsInform": false,
+                        "sendAttachment": 0
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Email check(s) created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Email check(s) created successfully."
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "checkId": {
+                            "type": "string",
+                            "example": "RJ6qGAAxJPGE1rD"
+                          },
+                          "status": {
+                            "type": "string",
+                            "example": "Email sent"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "successfulResponse": {
+                    "value": {
+                      "success": true,
+                      "message": "Email check(s) created successfully.",
+                      "data": [
+                        {
+                          "checkId": "RJ6qGAAxJPGE1rD",
+                          "status": "Email sent"
+                        },
+                        {
+                          "checkId": "dJM5Gbk3LQeY329",
+                          "status": "Email sent"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation failed or invalid data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "errorMsg": {
+                      "type": "string",
+                      "example": "Validation failed for email check input."
+                    }
+                  }
+                },
+                "examples": {
+                  "missingCheckId": {
+                    "value": {
+                      "success": false,
+                      "errorMsg": "The checkId field is required."
+                    }
+                  },
+                  "invalidPayeeEmail": {
+                    "value": {
+                      "success": false,
+                      "errorMsg": "The payeeEmail field must be a valid email address."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Email Checks"]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
