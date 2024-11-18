@@ -1,0 +1,167 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Online Check Writer API",
+    "description": "API documentation for retrieving payees.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://staging.api.ocw.sebipay.com/api/v3",
+      "description": "Staging Server"
+    }
+  ],
+  "paths": {
+    "/payees": {
+      "get": {
+        "summary": "Retrieve all payees",
+        "description": "List all payee records.",
+        "parameters": [
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "Number of records that you want to receive in the response. By default, 10 records will be listed.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "For navigating through pages. By default, the first page will be listed.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "term",
+            "in": "query",
+            "description": "Filter records using any keywords.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with a list of payees.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "meta": {
+                          "type": "object",
+                          "properties": {
+                            "total": {
+                              "type": "integer",
+                              "example": 200
+                            },
+                            "currentPage": {
+                              "type": "integer",
+                              "example": 1
+                            },
+                            "perPage": {
+                              "type": "integer",
+                              "example": 2
+                            }
+                          }
+                        },
+                        "payees": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "payeeId": { "type": "string" },
+                              "name": { "type": "string" },
+                              "email": { "type": "string" },
+                              "phone": { "type": "string" },
+                              "address": { "type": "string" },
+                              "createdDate": { "type": "string", "format": "date" }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "exampleResponse": {
+                    "value": {
+                      "success": true,
+                      "data": {
+                        "meta": {
+                          "total": 200,
+                          "currentPage": 1,
+                          "perPage": 10
+                        },
+                        "payees": [
+                          {
+                            "payeeId": "P123456789",
+                            "name": "John Doe",
+                            "email": "johndoe@example.com",
+                            "phone": "+1234567890",
+                            "address": "123 Main St, Springfield, USA",
+                            "createdDate": "2024-11-18"
+                          },
+                          {
+                            "payeeId": "P987654321",
+                            "name": "Jane Smith",
+                            "email": "janesmith@example.com",
+                            "phone": "+0987654321",
+                            "address": "456 Elm St, Metropolis, USA",
+                            "createdDate": "2024-11-17"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Unauthenticated." }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Payees"]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

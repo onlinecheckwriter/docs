@@ -36,8 +36,13 @@
          "api-reference/bank-account/get-bank-account",
          "api-reference/bank-account/create-bank-account"
        ]
+    },
+    {
+       "group": "Payee",
+       "pages": [
+         "api-reference/payee/get-payees"
+       ]
     }
-    
   ],
   "footerSocials": {
     "x": "https://x.com/mintlify",
