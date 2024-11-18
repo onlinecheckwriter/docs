@@ -67,7 +67,7 @@
                           "properties": {
                             "total": {
                               "type": "integer",
-                              "example": 200
+                              "example": 9971
                             },
                             "currentPage": {
                               "type": "integer",
@@ -75,7 +75,7 @@
                             },
                             "perPage": {
                               "type": "integer",
-                              "example": 2
+                              "example": 10
                             }
                           }
                         },
@@ -86,10 +86,16 @@
                             "properties": {
                               "payeeId": { "type": "string" },
                               "name": { "type": "string" },
+                              "nickName": { "type": "string" },
+                              "company": { "type": "string" },
                               "email": { "type": "string" },
                               "phone": { "type": "string" },
-                              "address": { "type": "string" },
-                              "createdDate": { "type": "string", "format": "date" }
+                              "address1": { "type": "string" },
+                              "address2": { "type": "string" },
+                              "city": { "type": "string" },
+                              "state": { "type": "string" },
+                              "zip": { "type": "string" },
+                              "country": { "type": "string" }
                             }
                           }
                         }
@@ -103,26 +109,38 @@
                       "success": true,
                       "data": {
                         "meta": {
-                          "total": 200,
+                          "total": 99,
                           "currentPage": 1,
-                          "perPage": 10
+                          "perPage": 2
                         },
                         "payees": [
                           {
-                            "payeeId": "P123456789",
-                            "name": "John Doe",
-                            "email": "johndoe@example.com",
-                            "phone": "+1234567890",
-                            "address": "123 Main St, Springfield, USA",
-                            "createdDate": "2024-11-18"
+                            "payeeId": "RJ6qGAAxJPGE1rD",
+                            "name": "Payee Name 1",
+                            "nickName": "Payee Nick Name 1",
+                            "company": "",
+                            "email": "test@test.com",
+                            "phone": "",
+                            "address1": "address1",
+                            "address2": "address2",
+                            "city": "city",
+                            "state": "state",
+                            "zip": "123456",
+                            "country": "US"
                           },
                           {
-                            "payeeId": "P987654321",
-                            "name": "Jane Smith",
-                            "email": "janesmith@example.com",
-                            "phone": "+0987654321",
-                            "address": "456 Elm St, Metropolis, USA",
-                            "createdDate": "2024-11-17"
+                            "payeeId": "dJM5Gbk3LQeY329",
+                            "name": "Payee Name 2",
+                            "nickName": "Payee Nick Name 2",
+                            "company": "",
+                            "email": "test@test.com",
+                            "phone": "",
+                            "address1": "address1",
+                            "address2": "address2",
+                            "city": "city",
+                            "state": "state",
+                            "zip": "123456",
+                            "country": "US"
                           }
                         ]
                       }
