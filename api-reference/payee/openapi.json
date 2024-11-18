@@ -193,18 +193,18 @@
                     "data": {
                       "type": "object",
                       "properties": {
-                        "payeeId": { "type": "string" },
-                        "name": { "type": "string" },
-                        "nickName": { "type": "string" },
-                        "company": { "type": "string" },
-                        "email": { "type": "string" },
-                        "phone": { "type": "string" },
-                        "address1": { "type": "string" },
-                        "address2": { "type": "string", "nullable": true },
-                        "city": { "type": "string" },
-                        "state": { "type": "string" },
-                        "zip": { "type": "string" },
-                        "country": { "type": "string" }
+                        "id": { "type": "string", "example": "RJ6qGAAxJPGE1rD" },
+                        "name": { "type": "string", "example": "Payee Name 1" },
+                        "nickName": { "type": "string", "example": "" },
+                        "company": { "type": "string", "example": "" },
+                        "email": { "type": "string", "example": "" },
+                        "phone": { "type": "string", "example": "" },
+                        "address1": { "type": "string", "example": "" },
+                        "address2": { "type": "string", "example": "" },
+                        "city": { "type": "string", "example": "" },
+                        "state": { "type": "string", "example": "" },
+                        "zip": { "type": "string", "example": "" },
+                        "country": { "type": "string", "example": "" }
                       }
                     }
                   }
@@ -214,17 +214,17 @@
                     "value": {
                       "success": true,
                       "data": {
-                        "payeeId": "RJ6qGAAxJPGE1rD",
-                        "name": "John Doe",
-                        "nickName": "JD",
-                        "company": "John's Services",
-                        "email": "john.doe@example.com",
-                        "phone": "+1234567890",
-                        "address1": "123 Main St",
-                        "address2": "Apt 4B",
-                        "city": "Springfield",
-                        "state": "IL",
-                        "zip": "62704",
+                        "id": "RJ6qGAAxJPGE1rD",
+                        "name": "Payee Name 1",
+                        "nickName": "Payee Nick Name 1",
+                        "company": "",
+                        "email": "test@test.com",
+                        "phone": "",
+                        "address1": "address1",
+                        "address2": "address2",
+                        "city": "city",
+                        "state": "state",
+                        "zip": "123456",
                         "country": "US"
                       }
                     }
@@ -241,7 +241,7 @@
                   "type": "object",
                   "properties": {
                     "success": { "type": "boolean", "example": false },
-                    "errorMsg": { "type": "string", "example": "Payee not found." }
+                    "errorMsg": { "type": "string", "example": "This payee not found" }
                   }
                 }
               }
