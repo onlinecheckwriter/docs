@@ -65,18 +65,9 @@
                         "meta": {
                           "type": "object",
                           "properties": {
-                            "total": {
-                              "type": "integer",
-                              "example": 9971
-                            },
-                            "currentPage": {
-                              "type": "integer",
-                              "example": 1
-                            },
-                            "perPage": {
-                              "type": "integer",
-                              "example": 10
-                            }
+                            "total": { "type": "integer", "example": 9971 },
+                            "currentPage": { "type": "integer", "example": 1 },
+                            "perPage": { "type": "integer", "example": 10 }
                           }
                         },
                         "payees": {
@@ -172,7 +163,7 @@
         "tags": ["Payees"]
       }
     },
-     "/payees/{payeeId}": {
+    "/payees/{payeeId}": {
       "get": {
         "summary": "Retrieve a payee",
         "description": "Details of an existing payee.",
@@ -180,7 +171,7 @@
           {
             "name": "payeeId",
             "in": "path",
-            "description": "The ID of the payee to retrieve",
+            "description": "The ID of the payee to retrieve.",
             "required": true,
             "schema": {
               "type": "string"
