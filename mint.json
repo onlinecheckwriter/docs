@@ -40,7 +40,7 @@
        {
       "group": "Bank Account",
       "pages": [
-     "bank-account/endpoints/create"
+     "bank-account/endpoints/get"
       ]
     }
     
