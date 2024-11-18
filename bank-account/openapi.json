@@ -18,9 +18,8 @@
       "bearerAuth": []
     }
   ],
-  
   "paths": {
-    "/bankAccounts": {
+    "/plants": {
       "get": {
         "description": "Returns all plants from the system that the user has access to",
         "parameters": [
@@ -64,25 +63,13 @@
         "description": "Creates a new plant in the store",
         "requestBody": {
           "description": "Plant to add to the store",
-         {
-                "name"                    :"Chase Bank",
-                "nickName"                :"Chase Bank",
-                "accountNumber"           :"10029841",
-                "addressLine1"            :"Test Address Line 1",
-                "addressLine2"            :"Test Address Line 2",
-                "phone"                   :"900244400",
-                "city"                    :"Sanjose",
-                "state"                   :"CA",
-                "zip"                     :"95113",
-                "bankName"                :"Demo Bank",
-                "bankRoutingNumber"       :"021000021",
-                "bankAddress1"            :"Address 1",
-                "bankCity"                :"Dallas",
-                "bankState"               :"CA",
-                "bankZip"                 :"75001",
-                "bankIdentity"            :"58756985",
-                "templateId"              :"qx5NrWjymj2n3l6"
-            },
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewPlant"
+              }
+            }
+          },
           "required": true
         },
         "responses": {
