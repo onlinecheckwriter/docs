@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "{{BASE_URL}}",
+      "url": "https://staging.api.ocw.sebipay.com/api/v3",
       "description": "Production server"
     }
   ],
