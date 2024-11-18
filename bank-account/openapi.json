@@ -351,6 +351,36 @@
                 }
               }
             }
+          },
+          "422": {
+            "description": "Validation failed. Unprocessable entity.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": { "type": "string" },
+                    "bankAccountId": { "type": "string", "nullable": true }
+                  }
+                },
+                "examples": {
+                  "duplicateBankAccount": {
+                    "value": {
+                      "success": false,
+                      "errorMsg": "Duplicate bank account on item 1",
+                      "bankAccountId": "Q36gYVewBOP7Gdx7bDn"
+                    }
+                  },
+                  "validationErrorWithoutBankAccountId": {
+                    "value": {
+                      "success": false,
+                      "errorMsg": "Required field is missing"
+                    }
+                  }
+                }
+              }
+            }
           }
         },
         "security": [
