@@ -169,6 +169,99 @@
           }
         ],
         "tags": ["Bank Accounts"]
+      },
+      "/bankAccounts/{bankAccountId}": {
+      "get": {
+        "summary": "Retrieve a single bank account",
+        "description": "Fetch the details of a single bank account using its unique ID.",
+        "parameters": [
+          {
+            "name": "bankAccountId",
+            "in": "path",
+            "description": "The unique identifier of the bank account.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with the details of a single bank account.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "bankAccountId": { "type": "string" },
+                        "name": { "type": "string" },
+                        "nickName": { "type": "string" },
+                        "accountNumber": { "type": "string" },
+                        "isVerified": { "type": "boolean" },
+                        "bankId": { "type": "string" },
+                        "addressLine1": { "type": "string" },
+                        "addressLine2": { "type": "string", "nullable": true },
+                        "city": { "type": "string" },
+                        "state": { "type": "string" },
+                        "zip": { "type": "string" },
+                        "phone": { "type": "string", "nullable": true },
+                        "createdDate": { "type": "string", "format": "date" },
+                        "webUrl": { "type": "string", "format": "uri" }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "exampleResponse": {
+                    "value": {
+                      "success": true,
+                      "data": {
+                        "bankAccountId": "XP3Ez2Ggn8JP4qQgAYd",
+                        "name": "Demo Bank 1333",
+                        "nickName": "company1333334",
+                        "accountNumber": "34234234234222",
+                        "isVerified": false,
+                        "bankId": "6VoW41bgPVG589l",
+                        "addressLine1": "Test Address1",
+                        "addressLine2": null,
+                        "city": "Downey",
+                        "state": "CA",
+                        "zip": "90242",
+                        "phone": null,
+                        "createdDate": "11-12-2024",
+                        "webUrl": "https://staging.web.ocw.sebipay.com/manage/bank-accounts/index?id=3Ez2Ggn8JP4qQgA"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Bank account not found.",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Bank account not found."
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Bank Accounts"]
       }
     }
   },
