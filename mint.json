@@ -41,7 +41,8 @@
        "group": "Bank Account",
        "pages": [
          "bank-account/endpoints/get-bank-accounts",
-         "bank-account/endpoints/get-bank-account"
+         "bank-account/endpoints/get-bank-account",
+         "bank-account/endpoints/create-bank-account"
        ]
     }
     
