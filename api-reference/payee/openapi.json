@@ -161,6 +161,134 @@
           }
         ],
         "tags": ["Payees"]
+      },
+      "post": {
+        "summary": "Create Payees",
+        "description": "Create one or more payees.",
+        "requestBody": {
+          "description": "Payload to create new payees.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "payees": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": { "type": "string" },
+                        "nickName": { "type": "string" },
+                        "company": { "type": "string" },
+                        "email": { "type": "string", "format": "email" },
+                        "phone": { "type": "string" },
+                        "address1": { "type": "string" },
+                        "address2": { "type": "string", "nullable": true },
+                        "city": { "type": "string" },
+                        "state": { "type": "string" },
+                        "zip": { "type": "string" },
+                        "country": { "type": "string" }
+                      },
+                      "required": ["name", "email", "address1", "city", "state", "zip", "country"]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Payee(s) created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "message": { "type": "string", "example": "Payee(s) created successfully." },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "payeeId": { "type": "string" },
+                          "name": { "type": "string" },
+                          "email": { "type": "string" },
+                          "createdDate": { "type": "string", "format": "date" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Validation failed or duplicate payee found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": { "type": "string" },
+                    "payeeId": { "type": "string", "nullable": true }
+                  }
+                },
+                "examples": {
+                  "validationFailure": {
+                    "value": {
+                      "success": false,
+                      "errorMsg": "Validation failed for one or more fields."
+                    }
+                  },
+                  "duplicatePayee": {
+                    "value": {
+                      "success": false,
+                      "errorMsg": "Duplicate payee on item 1",
+                      "payeeId": "RJ6qGAAxJPGE1rD"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request payload.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "message": { "type": "string", "example": "Invalid request payload." }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Unauthenticated." }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Payees"]
       }
     },
     "/payees/{payeeId}": {
