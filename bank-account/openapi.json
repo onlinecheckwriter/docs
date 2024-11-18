@@ -55,39 +55,85 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
                     "data": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "integer"
-                          },
-                          "accountName": {
-                            "type": "string"
-                          },
-                          "accountNumber": {
-                            "type": "string"
-                          },
-                          "balance": {
-                            "type": "number",
-                            "format": "float"
+                      "type": "object",
+                      "properties": {
+                        "meta": {
+                          "type": "object",
+                          "properties": {
+                            "total": {
+                              "type": "integer",
+                              "example": 1446
+                            },
+                            "currentPage": {
+                              "type": "integer",
+                              "example": 1
+                            },
+                            "perPage": {
+                              "type": "integer",
+                              "example": 10
+                            }
+                          }
+                        },
+                        "bankAccounts": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "bankAccountId": { "type": "string" },
+                              "name": { "type": "string" },
+                              "nickName": { "type": "string" },
+                              "accountNumber": { "type": "string" },
+                              "isVerified": { "type": "boolean" },
+                              "bankId": { "type": "string" },
+                              "addressLine1": { "type": "string" },
+                              "addressLine2": { "type": "string", "nullable": true },
+                              "city": { "type": "string" },
+                              "state": { "type": "string" },
+                              "zip": { "type": "string" },
+                              "phone": { "type": "string", "nullable": true },
+                              "createdDate": { "type": "string", "format": "date" },
+                              "webUrl": { "type": "string", "format": "uri" }
+                            }
                           }
                         }
                       }
-                    },
-                    "pagination": {
-                      "type": "object",
-                      "properties": {
-                        "total": {
-                          "type": "integer"
+                    }
+                  }
+                },
+                "examples": {
+                  "success": {
+                    "value": {
+                      "success": true,
+                      "data": {
+                        "meta": {
+                          "total": 1446,
+                          "currentPage": 1,
+                          "perPage": 10
                         },
-                        "page": {
-                          "type": "integer"
-                        },
-                        "perPage": {
-                          "type": "integer"
-                        }
+                        "bankAccounts": [
+                          {
+                            "bankAccountId": "XP3Ez2Ggn8JP4qQgAYd",
+                            "name": "Demo Bank 1333",
+                            "nickName": "company1333334",
+                            "accountNumber": "34234234234222",
+                            "isVerified": false,
+                            "bankId": "6VoW41bgPVG589l",
+                            "addressLine1": "Test Address1",
+                            "addressLine2": null,
+                            "city": "Downey",
+                            "state": "CA",
+                            "zip": "90242",
+                            "phone": null,
+                            "createdDate": "11-12-2024",
+                            "webUrl": "https://staging.web.ocw.sebipay.com/manage/bank-accounts/index?id=3Ez2Ggn8JP4qQgA"
+                          }
+                          // Other accounts...
+                        ]
                       }
                     }
                   }
