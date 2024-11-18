@@ -7,8 +7,12 @@
   },
   "servers": [
     {
-      "url": "https://staging.api.ocw.sebipay.com/api/v3",
-      "description": "Production Server"
+      "url": "https://test.onlinecheckwriter.com/api/v3",
+      "description": "Test server"
+    },
+    {
+      "url": "https://app.onlinecheckwriter.com/api/v3",
+      "description": "Production server"
     }
   ],
   "paths": {
@@ -80,8 +84,8 @@
           }
         },
         "responses": {
-          "201": {
-            "description": "Email check(s) created successfully.",
+          "200": {
+            "description": "Successful response for email checks.",
             "content": {
               "application/json": {
                 "schema": {
@@ -93,23 +97,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Email check(s) created successfully."
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "checkId": {
-                            "type": "string",
-                            "example": "RJ6qGAAxJPGE1rD"
-                          },
-                          "status": {
-                            "type": "string",
-                            "example": "Email sent"
-                          }
-                        }
-                      }
+                      "example": "Successfully done"
                     }
                   }
                 },
@@ -117,17 +105,35 @@
                   "successfulResponse": {
                     "value": {
                       "success": true,
-                      "message": "Email check(s) created successfully.",
-                      "data": [
-                        {
-                          "checkId": "RJ6qGAAxJPGE1rD",
-                          "status": "Email sent"
-                        },
-                        {
-                          "checkId": "dJM5Gbk3LQeY329",
-                          "status": "Email sent"
-                        }
-                      ]
+                      "message": "Successfully done"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. User email or phone number is not verified.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "errorMsg": {
+                      "type": "string",
+                      "example": "Please verify your Phone Number and Email Address to enable mail Check."
+                    }
+                  }
+                },
+                "examples": {
+                  "forbiddenResponse": {
+                    "value": {
+                      "success": false,
+                      "errorMsg": "Please verify your Phone Number and Email Address to enable mail Check."
                     }
                   }
                 }
@@ -156,12 +162,6 @@
                     "value": {
                       "success": false,
                       "errorMsg": "The checkId field is required."
-                    }
-                  },
-                  "invalidPayeeEmail": {
-                    "value": {
-                      "success": false,
-                      "errorMsg": "The payeeEmail field must be a valid email address."
                     }
                   }
                 }

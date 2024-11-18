@@ -7,8 +7,12 @@
   },
   "servers": [
     {
-      "url": "https://staging.api.ocw.sebipay.com/api/v3",
-      "description": "Staging Server"
+      "url": "https://test.onlinecheckwriter.com/api/v3",
+      "description": "Test server"
+    },
+    {
+      "url": "https://app.onlinecheckwriter.com/api/v3",
+      "description": "Production server"
     }
   ],
   "paths": {
