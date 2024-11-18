@@ -48,7 +48,8 @@
     {
        "group": "Check",
        "pages": [
-         "api-reference/check/create-check"
+         "api-reference/check/create-check",
+         "api-reference/check/get-checks"
        ]
     }
   ],

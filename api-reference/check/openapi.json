@@ -13,6 +13,179 @@
   ],
   "paths": {
     "/checks": {
+      "get": {
+          "summary": "Retrieve all checks",
+          "description": "List all check records with optional filters like status, term, and reference ID.",
+          "parameters": [
+            {
+              "name": "perPage",
+              "in": "query",
+              "description": "Number of records to retrieve in the response. Defaults to 10.",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "default": 10
+              }
+            },
+            {
+              "name": "page",
+              "in": "query",
+              "description": "For navigating through pages. Defaults to the first page.",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "default": 1
+              }
+            },
+            {
+              "name": "term",
+              "in": "query",
+              "description": "Filter records using any keywords.",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "status",
+              "in": "query",
+              "description": "Filter records by check status. Allowed values: `new`, `void`, `mailed`, `refunded`, `emailed`, `eprinted`, `printed`.",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "referenceId",
+              "in": "query",
+              "description": "Filter records by a unique reference ID.",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response with a list of checks.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "success": { "type": "boolean", "example": true },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "meta": {
+                            "type": "object",
+                            "properties": {
+                              "total": { "type": "integer" },
+                              "currentPage": { "type": "integer" },
+                              "perPage": { "type": "integer" }
+                            }
+                          },
+                          "checks": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "checkId": { "type": "string" },
+                                "serialNumber": { "type": "string" },
+                                "amount": { "type": "number" },
+                                "status": { "type": "string" },
+                                "issueDate": { "type": "string", "format": "date" },
+                                "payee": {
+                                  "type": "object",
+                                  "properties": {
+                                    "payeeId": { "type": "string" },
+                                    "name": { "type": "string" }
+                                  }
+                                },
+                                "bankAccount": {
+                                  "type": "object",
+                                  "properties": {
+                                    "bankAccountId": { "type": "string" },
+                                    "name": { "type": "string" }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "examples": {
+                    "exampleResponse": {
+                      "value": {
+                        "success": true,
+                        "data": {
+                          "meta": {
+                            "total": 50,
+                            "currentPage": 1,
+                            "perPage": 10
+                          },
+                          "checks": [
+                            {
+                              "checkId": "RJ6qGAAxJPGE1rD",
+                              "serialNumber": "1001",
+                              "amount": 100,
+                              "status": "new",
+                              "issueDate": "2023-10-25",
+                              "payee": {
+                                "payeeId": "1ZoVelyDaQj8pwb",
+                                "name": "John Doe"
+                              },
+                              "bankAccount": {
+                                "bankAccountId": "XP3Ez2Ggn8JP4qQgAYd",
+                                "name": "Demo Bank"
+                              }
+                            },
+                            {
+                              "checkId": "KmQaMdjZl2XoGzLxbWy",
+                              "serialNumber": "1002",
+                              "amount": 200,
+                              "status": "void",
+                              "issueDate": "2023-10-26",
+                              "payee": {
+                                "payeeId": "2ZoVelyDaQj8pwb",
+                                "name": "Jane Doe"
+                              },
+                              "bankAccount": {
+                                "bankAccountId": "XP3Ez2Ggn8JP4qQgAYd",
+                                "name": "Demo Bank"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized. Missing or invalid token.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": { "type": "string", "example": "Unauthenticated." }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "tags": ["Checks"]
+        },
       "post": {
         "summary": "Create Checks",
         "description": "Allows the creation of one or more checks in a single request. Advanced stubs can be included by passing a `voucher` object.",
