@@ -317,6 +317,115 @@
           }
         ]
       },
+      "put": {
+        "summary": "Update a Payee",
+        "description": "Update details of an existing payee.",
+        "tags": ["Payees"],
+        "parameters": [
+          {
+            "name": "payeeId",
+            "in": "path",
+            "description": "The ID of the payee to update.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "RJ6qGAAxJPGE1rD"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Payload to update payee details.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string", "description": "Name of the payee.", "example": "John Doe" },
+                  "nickName": { "type": "string", "description": "Nick name of the payee.", "example": "JD" },
+                  "company": { "type": "string", "description": "Company name.", "example": "Company A" },
+                  "email": { "type": "string", "description": "Payee's email address.", "example": "johndoe@example.com" },
+                  "phone": { "type": "string", "description": "Payee's phone number.", "example": "1234567890" },
+                  "address1": { "type": "string", "description": "Address 1", "example": "123 Main Street" },
+                  "address2": { "type": "string", "description": "Address 2", "example": "Apt 4B" },
+                  "city": { "type": "string", "description": "City name.", "example": "City" },
+                  "state": { "type": "string", "description": "State", "example": "ST" },
+                  "zip": { "type": "string", "description": "ZIP code.", "example": "12345" },
+                  "country": { "type": "string", "description": "Country name.", "example": "US" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Payee updated successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "message": { "type": "string", "example": "Successfully updated" },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "payeeId": { "type": "string", "example": "RJ6qGAAxJPGE1rD" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation failed or invalid input.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": { "type": "string", "example": "Validation error: Invalid data provided." }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Payee not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": { "type": "string", "example": "This payee not found." }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Unauthenticated." }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
       "delete": {
         "summary": "Delete a Payee",
         "description": "Permanently deletes a payee.",

@@ -492,6 +492,108 @@
         ],
         "tags": ["Bank Accounts"]
       },
+      "put": {
+        "summary": "Update a bank account",
+        "description": "Allows updating an existing bank account.",
+        "tags": ["Bank Accounts"],
+        "parameters": [
+          {
+            "name": "bankAccountId",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the bank account to update.",
+            "schema": {
+              "type": "string",
+              "example": "3Ez2Ggn8JP4qQgA"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Payload for updating bank account details.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string", "example": "Updated Bank Name" },
+                  "nickName": { "type": "string", "example": "Updated Nickname" },
+                  "accountNumber": { "type": "string", "example": "123456789012" },
+                  "addressLine1": { "type": "string", "example": "Updated Address Line 1" },
+                  "addressLine2": { "type": "string", "nullable": true, "example": "Updated Address Line 2" },
+                  "city": { "type": "string", "example": "Updated City" },
+                  "state": { "type": "string", "example": "ST" },
+                  "zip": { "type": "string", "example": "12345" },
+                  "phone": { "type": "string", "nullable": true, "example": "1234567890" }
+                },
+                "required": ["name", "accountNumber", "addressLine1", "city", "state", "zip"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Bank account updated successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "message": { "type": "string", "example": "Bank account updated successfully." }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request payload.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": { "type": "string", "example": "Invalid request payload." }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Bank account not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": { "type": "string", "example": "This bank account not found." }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Unauthenticated." }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
       "delete": {
         "summary": "Delete a bank account",
         "description": "Delete an existing bank account.",
