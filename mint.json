@@ -38,6 +38,13 @@
        ]
     },
     {
+       "group": "Payee",
+       "pages": [
+         "api-reference/payee/get-payees",
+         "api-reference/payee/create-payee"
+       ]
+    },
+    {
        "group": "Check",
        "pages": [
          "api-reference/check/get-checks",
