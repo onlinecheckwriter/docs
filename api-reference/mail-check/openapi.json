@@ -19,7 +19,7 @@
     "/mailchecks": {
       "post": {
         "summary": "Create New Mail Checks",
-        "description": "Create multiple mail checks in one single request. See `Shipping Types`, `Paper Types`, and `Inform Types` for valid IDs.",
+        "description": "Create multiple mail checks in one single request.",
         "tags": ["Mail Checks"],
         "requestBody": {
           "description": "Payload to specify the mail checks and their attributes.",
