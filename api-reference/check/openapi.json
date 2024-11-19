@@ -573,6 +573,106 @@
           }
         ],
         "tags": ["Checks"]
+      },
+      "delete": {
+        "summary": "Delete a check",
+        "description": "Permanently deletes a check.",
+        "tags": ["Checks"],
+        "parameters": [
+          {
+            "name": "checkId",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the check to delete.",
+            "schema": {
+              "type": "string",
+              "example": "RJ6qGAyPQzGE1rD"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Check deleted successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully deleted"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permission denied.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "errorMsg": {
+                      "type": "string",
+                      "example": "You do not have permission to delete this cheque"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Check not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "errorMsg": {
+                      "type": "string",
+                      "example": "This check not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Unauthenticated."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/checks/print": {
