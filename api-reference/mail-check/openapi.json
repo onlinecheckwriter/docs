@@ -19,7 +19,7 @@
     "/mailchecks": {
       "post": {
         "summary": "Create New Mail Checks",
-        "description": "Create multiple mail checks in one single request.",
+        "description": "Create multiple mail checks in one single request. See `Shipping Types`, `Paper Types`, and `Inform Types` for valid IDs.",
         "tags": ["Mail Checks"],
         "requestBody": {
           "description": "Payload to specify the mail checks and their attributes.",
@@ -62,17 +62,17 @@
                         },
                         "shippingTypeId": {
                           "type": "integer",
-                          "description": "Must be a valid `shippingTypeId`. See 'Shipping Types' below.",
+                          "description": "Must be a valid `shippingTypeId`. See `Shipping Types` for valid IDs.",
                           "example": 3
                         },
                         "paperTypeId": {
                           "type": "integer",
-                          "description": "Must be a valid `paperTypeId`. See 'Paper Types' below.",
+                          "description": "Must be a valid `paperTypeId`. See `Paper Types` for valid IDs.",
                           "example": 7
                         },
                         "informTypeId": {
                           "type": "integer",
-                          "description": "Must be a valid `informTypeId`. See 'Inform Types' below.",
+                          "description": "Must be a valid `informTypeId`. See `Inform Types` for valid IDs.",
                           "example": 10
                         },
                         "enableSmsInform": {
@@ -191,6 +191,57 @@
         "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "ShippingTypes": {
+        "type": "array",
+        "description": "Available shipping types.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "integer" },
+            "description": { "type": "string" }
+          }
+        },
+        "example": [
+          { "id": 1, "description": "First Class" },
+          { "id": 3, "description": "First Class with Tracking" },
+          { "id": 4, "description": "Priority Mail" },
+          { "id": 5, "description": "Express Mail" },
+          { "id": 12, "description": "Standard Overnight - FedEx by 3 pm the next business day" },
+          { "id": 20, "description": "FedEx Saturday Delivery" }
+        ]
+      },
+      "PaperTypes": {
+        "type": "array",
+        "description": "Available paper types.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "integer" },
+            "description": { "type": "string" }
+          }
+        },
+        "example": [
+          { "id": 7, "description": "Regular Check Paper" },
+          { "id": 8, "description": "Hologram Check Paper" },
+          { "id": 9, "description": "Ultra Hologram Check Paper" }
+        ]
+      },
+      "InformTypes": {
+        "type": "array",
+        "description": "Available inform types.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "integer" },
+            "description": { "type": "string" }
+          }
+        },
+        "example": [
+          { "id": 10, "description": "Notify Receiver by SMS" }
+        ]
       }
     }
   }
