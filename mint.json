@@ -59,7 +59,7 @@
        "group": "Mail Check",
        "pages": [
          "api-reference/mail-check/create",
-         "api-reference/mail-check/get-all-mail-attachments"
+         "api-reference/mail-check/get-all-mail-attachments",
          "api-reference/mail-check/add-mail-attachment"
        ]
     }
