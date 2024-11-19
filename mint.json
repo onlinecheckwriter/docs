@@ -34,7 +34,8 @@
        "pages": [
          "api-reference/bank-account/get-bank-accounts",
          "api-reference/bank-account/get-bank-account",
-         "api-reference/bank-account/create-bank-account"
+         "api-reference/bank-account/create-bank-account",
+         "api-reference/bank-account/delete-bank-account"
        ]
     },
     {

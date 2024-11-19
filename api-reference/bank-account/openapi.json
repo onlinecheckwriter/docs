@@ -491,6 +491,70 @@
           }
         ],
         "tags": ["Bank Accounts"]
+      },
+      "delete": {
+        "summary": "Delete a bank account",
+        "description": "Delete an existing bank account.",
+        "parameters": [
+          {
+            "name": "bankAccountId",
+            "in": "path",
+            "description": "The ID of the bank account to delete.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bank account deleted successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "message": { "type": "string", "example": "Successfully deleted" }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Bank account not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": { "type": "string", "example": "This bank account not found." }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Unauthenticated." }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Bank Accounts"]
       }
     }
   },
