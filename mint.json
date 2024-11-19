@@ -52,7 +52,8 @@
          "api-reference/check/get-check",
          "api-reference/check/create-check",
          "api-reference/email-check/create",
-         "api-reference/check/print-checks"
+         "api-reference/check/print-checks",
+         "api-reference/mail-check/create"
        ]
     }
   ],

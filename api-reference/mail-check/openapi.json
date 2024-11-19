@@ -1,0 +1,197 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Online Check Writer API",
+    "description": "API documentation for creating and managing mail checks.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://test.onlinecheckwriter.com/api/v3",
+      "description": "Test server"
+    },
+    {
+      "url": "https://app.onlinecheckwriter.com/api/v3",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/mailchecks": {
+      "post": {
+        "summary": "Create New Mail Checks",
+        "description": "Create multiple mail checks in one single request.",
+        "tags": ["Mail Checks"],
+        "requestBody": {
+          "description": "Payload to specify the mail checks and their attributes.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "isShippingToCustomAddress": {
+                    "type": "boolean",
+                    "description": "Value is `true` if sending mail to custom address. Defaults to `false`.",
+                    "example": false
+                  },
+                  "customFromAddressId": {
+                    "type": "string",
+                    "description": "Must be a custom 'from' address ID. Required if `isShippingToCustomAddress` is `true`.",
+                    "example": "address123"
+                  },
+                  "customToAddressId": {
+                    "type": "string",
+                    "description": "Must be a custom 'to' address ID. Required if `isShippingToCustomAddress` is `true`.",
+                    "example": "address456"
+                  },
+                  "customShippingTypeId": {
+                    "type": "string",
+                    "description": "Must be a valid custom shipping type ID. Required if `isShippingToCustomAddress` is `true`.",
+                    "example": "shipping789"
+                  },
+                  "mailChecks": {
+                    "type": "array",
+                    "description": "An array of mail check attributes.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "checkId": {
+                          "type": "string",
+                          "description": "Must be a valid check ID.",
+                          "example": "bL3YGddEnmG1X7w"
+                        },
+                        "shippingTypeId": {
+                          "type": "integer",
+                          "description": "Must be a valid `shippingTypeId`. See 'Shipping Types' below.",
+                          "example": 3
+                        },
+                        "paperTypeId": {
+                          "type": "integer",
+                          "description": "Must be a valid `paperTypeId`. See 'Paper Types' below.",
+                          "example": 7
+                        },
+                        "informTypeId": {
+                          "type": "integer",
+                          "description": "Must be a valid `informTypeId`. See 'Inform Types' below.",
+                          "example": 10
+                        },
+                        "enableSmsInform": {
+                          "type": "boolean",
+                          "description": "Enable SMS notifications. Defaults to `false`.",
+                          "example": false
+                        },
+                        "enableEmailInform": {
+                          "type": "boolean",
+                          "description": "Enable email notifications. Defaults to `false`.",
+                          "example": true
+                        },
+                        "payeeEmail": {
+                          "type": "string",
+                          "description": "Required if `enableEmailInform` is `true` and no email exists for the associated payee.",
+                          "example": "email@test.com"
+                        },
+                        "payeePhone": {
+                          "type": "string",
+                          "description": "Required if `enableSmsInform` is `true` and no phone exists for the associated payee.",
+                          "example": "123456789"
+                        }
+                      },
+                      "required": ["checkId", "shippingTypeId", "paperTypeId"]
+                    }
+                  }
+                },
+                "required": ["mailChecks"]
+              },
+              "example": {
+                "isShippingToCustomAddress": true,
+                "customFromAddressId": "address123",
+                "customToAddressId": "address456",
+                "customShippingTypeId": "shipping789",
+                "mailChecks": [
+                  {
+                    "checkId": "bL3YGddEnmG1X7w",
+                    "shippingTypeId": 3,
+                    "paperTypeId": 7,
+                    "informTypeId": 10,
+                    "enableSmsInform": false,
+                    "enableEmailInform": true,
+                    "payeeEmail": "email@test.com",
+                    "payeePhone": "123456789"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Mail checks created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "message": { "type": "string", "example": "Mail checks created successfully." },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "mailCheckIds": {
+                          "type": "array",
+                          "items": { "type": "string" },
+                          "example": ["mailCheckId123", "mailCheckId456"]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation failed or invalid input.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": { "type": "string", "example": "The mailChecks field is required." }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. The check cannot be mailed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": { "type": "string", "example": "Sorry, Check number 123456 cannot be mailed." }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
