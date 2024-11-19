@@ -574,6 +574,158 @@
         ],
         "tags": ["Checks"]
       }
+    },
+    "/checks/print": {
+      "post": {
+        "summary": "Print Checks",
+        "description": "Allows printing checks by specifying the `checkId` and `paperType`. You can print multiple checks by passing an array of `checkId`s.",
+        "parameters": [],
+        "requestBody": {
+          "description": "Payload to specify the check IDs and paper type for printing.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "paperType": {
+                    "type": "integer",
+                    "description": "Paper type for the check. Available options:\n\n1 - Check on Top\n2 - Check on Middle\n3 - Check on Bottom\n4 - Three per page\n5 - Wallet size\n6 - Simple print.",
+                    "enum": [1, 2, 3, 4, 5, 6],
+                    "example": 1
+                  },
+                  "checkId": {
+                    "type": "array",
+                    "description": "Array of check IDs to print.",
+                    "items": {
+                      "type": "string",
+                      "example": "123456"
+                    }
+                  }
+                },
+                "required": ["paperType", "checkId"]
+              },
+              "examples": {
+                "singleCheck": {
+                  "value": {
+                    "paperType": 1,
+                    "checkId": ["kWx8eP3l60GK2Xz"]
+                  }
+                },
+                "multipleChecks": {
+                  "value": {
+                    "paperType": 4,
+                    "checkId": ["kWx8eP3l60GK2Xz", "uIjkeP3l55GK8Jn"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Checks printed successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "url": { "type": "string", "example": "https://example.com/print/url" }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "exampleResponse": {
+                    "value": {
+                      "success": true,
+                      "data": {
+                        "url": "https://example.com/print/url"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Unauthenticated." }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation failed or invalid input.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": { "type": "string", "example": "Invalid paper type" }
+                  }
+                },
+                "examples": {
+                  "missingCheckId": {
+                    "value": {
+                      "success": false,
+                      "errorMsg": "The checkId field is required."
+                    }
+                  },
+                  "invalidPaperType": {
+                    "value": {
+                      "success": false,
+                      "errorMsg": "Invalid paper type"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. The check cannot be printed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": {
+                      "type": "string",
+                      "example": "Sorry, Check number 123456 is not allowed to print."
+                    }
+                  }
+                },
+                "examples": {
+                  "forbiddenCheck": {
+                    "value": {
+                      "success": false,
+                      "errorMsg": "Sorry, Check number 123456 is not allowed to print."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Checks"]
+      }
     }
   },
   "components": {
