@@ -37,17 +37,17 @@
                   "customFromAddressId": {
                     "type": "string",
                     "description": "Must be a custom 'from' address ID. Required if `isShippingToCustomAddress` is `true`.",
-                    "example": "address123"
+                    "example": "uJ7hGddEnmG1X7e"
                   },
                   "customToAddressId": {
                     "type": "string",
                     "description": "Must be a custom 'to' address ID. Required if `isShippingToCustomAddress` is `true`.",
-                    "example": "address456"
+                    "example": "dfGYGddEnmG1X7r"
                   },
                   "customShippingTypeId": {
                     "type": "string",
                     "description": "Must be a valid custom shipping type ID. Required if `isShippingToCustomAddress` is `true`.",
-                    "example": "shipping789"
+                    "example": "1"
                   },
                   "mailChecks": {
                     "type": "array",
@@ -281,8 +281,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": { "type": "boolean", "example": false },
-                    "errorMsg": { "type": "string", "example": "User is not authenticated." }
+                    "message": { "type": "string", "example": "Unauthenticated." }
                   }
                 }
               }

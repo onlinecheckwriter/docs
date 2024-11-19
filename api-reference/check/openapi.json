@@ -315,8 +315,8 @@
                   "value": {
                     "checks": [
                       {
-                        "bankAccountId": "{{bankAccountId}}",
-                        "payeeId": "{{payeeId}}",
+                        "bankAccountId": "6gYVewBOP7Gdx7b",
+                        "payeeId": "ijKVewBOP7GdyhG",
                         "categoryId": "",
                         "serialNumber": "1001",
                         "issueDate": "2020-10-25",
