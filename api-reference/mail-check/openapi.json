@@ -188,6 +188,113 @@
       }
     },
     "/mailchecks/{checkId}/attachments": {
+      "get": {
+        "summary": "Retrieve All Mail Attachments",
+        "description": "Retrieve a list of all mail attachments for a specific check",
+        "tags": ["Mail Checks"],
+        "parameters": [
+          {
+            "name": "checkId",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the check for which to retrieve attachments.",
+            "schema": {
+              "type": "string",
+              "example": "bL3YGddEnmG1X7w"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of all attachments retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "mailAttachmentId": { "type": "string", "example": "uKj7GddEnmG3Yhr" },
+                          "checkId": { "type": "string", "example": "bL3YGddEnmG1X7w" },
+                          "fileName": { "type": "string", "example": "example.pdf" },
+                          "fileNickName": { "type": "string", "example": "Invoice Document" },
+                          "fileUrl": { "type": "string", "example": "https://example.com/uploads/example.pdf" },
+                          "pageCount": { "type": "integer", "example": 3 },
+                          "createdDate": { "type": "string", "example": "11-20-2024" }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "successfulResponse": {
+                    "value": {
+                      "success": true,
+                      "data": [
+                        {
+                          "mailAttachmentId": "uKj7GddEnmG3Yhr",
+                          "checkId": "bL3YGddEnmG1X7w",
+                          "fileName": "example1.pdf",
+                          "fileNickName": "First Invoice",
+                          "fileUrl": "https://example.com/uploads/example1.pdf",
+                          "pageCount": 5,
+                          "createdDate": "11-19-2024"
+                        },
+                        {
+                          "mailAttachmentId": "uKj7GddEnmG3iJk",
+                          "checkId": "bL3YGddEnmG1X7w",
+                          "fileName": "example2.pdf",
+                          "fileNickName": "Second Invoice",
+                          "fileUrl": "https://example.com/uploads/example2.pdf",
+                          "pageCount": 3,
+                          "createdDate": "11-18-2024"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Check not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": { "type": "string", "example": "This check not found" }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": { "type": "string", "example": "User is not authenticated." }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
       "post": {
         "summary": "Add New Mail Attachment",
         "description": "This API allows you to upload a PDF file as an attachment. Two types of uploads are supported:\n\n1. **Upload via remote URL** (`fileUrl`): Provide a public, accessible URL, and the file will be fetched and added as an attachment.\n\n2. **Simple Upload** (`attachment`): Directly upload a file of type PDF via POST method.",
