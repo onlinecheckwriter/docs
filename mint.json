@@ -62,7 +62,8 @@
          "api-reference/mail-check/get-all-mail-attachments",
          "api-reference/mail-check/add-mail-attachment",
          "api-reference/mail-check/custom-from-address/get-all",
-         "api-reference/mail-check/custom-from-address/get-by-id"
+         "api-reference/mail-check/custom-from-address/get-by-id",
+         "api-reference/mail-check/custom-from-address/create"
        ]
     }
   ],
