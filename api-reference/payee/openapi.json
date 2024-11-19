@@ -139,17 +139,17 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "name": { "type": "string" },
-                        "nickName": { "type": "string" },
-                        "company": { "type": "string" },
-                        "email": { "type": "string", "format": "email" },
-                        "phone": { "type": "string" },
-                        "address1": { "type": "string" },
-                        "address2": { "type": "string" },
-                        "city": { "type": "string" },
-                        "state": { "type": "string" },
-                        "zip": { "type": "string" },
-                        "country": { "type": "string" }
+                        "name": { "type": "string", "example": "John Doe" },
+                        "nickName": { "type": "string", "example": "JD" },
+                        "company": { "type": "string", "example": "Company A" },
+                        "email": { "type": "string", "format": "email", "example": "johndoe@example.com" },
+                        "phone": { "type": "string", "example": "1234567890" },
+                        "address1": { "type": "string", "example": "Address 1" },
+                        "address2": { "type": "string", "example": "Address 2" },
+                        "city": { "type": "string", "example": "City" },
+                        "state": { "type": "string", "example": "ST" },
+                        "zip": { "type": "string", "example": "123456" },
+                        "country": { "type": "string", "example": "US" }
                       },
                       "required": ["name"]
                     }
@@ -177,18 +177,20 @@
                           "items": {
                             "type": "object",
                             "properties": {
-                              "payeeId": { "type": "string" },
-                              "name": { "type": "string" },
-                              "nickName": { "type": "string" },
-                              "company": { "type": "string" },
-                              "email": { "type": "string" },
-                              "phone": { "type": "string" },
-                              "address1": { "type": "string" },
-                              "address2": { "type": "string" },
-                              "city": { "type": "string" },
-                              "state": { "type": "string" },
-                              "zip": { "type": "string" },
-                              "country": { "type": "string" }
+                              {
+                                "payeeId": { "type": "string", "example": "RJ6qGAAxJPGE1rD" },
+                                "name": { "type": "string", "example": "John Doe" },
+                                "nickName": { "type": "string", "example": "JD" },
+                                "company": { "type": "string", "example": "Company A" },
+                                "email": { "type": "string", "example": "johndoe@example.com" },
+                                "phone": { "type": "string", "example": "1234567890" },
+                                "address1": { "type": "string", "example": "Address 1" },
+                                "address2": { "type": "string", "example": "Address 2" },
+                                "city": { "type": "string", "example": "City" },
+                                "state": { "type": "string", "example": "ST" },
+                                "zip": { "type": "string", "example": "123456" },
+                                "country": { "type": "string", "example": "US" }
+                              }
                             }
                           }
                         }
@@ -263,18 +265,18 @@
                     "data": {
                       "type": "object",
                       "properties": {
-                        "id": { "type": "string" },
-                        "name": { "type": "string" },
-                        "nickName": { "type": "string" },
-                        "company": { "type": "string" },
-                        "email": { "type": "string" },
-                        "phone": { "type": "string" },
-                        "address1": { "type": "string" },
-                        "address2": { "type": "string" },
-                        "city": { "type": "string" },
-                        "state": { "type": "string" },
-                        "zip": { "type": "string" },
-                        "country": { "type": "string" }
+                        "id": { "type": "string", "example": "RJ6qGAAxJPGE1rD" },
+                        "name": { "type": "string", "example": "John Doe" },
+                        "nickName": { "type": "string", "example": "JD" },
+                        "company": { "type": "string", "example": "Company A" },
+                        "email": { "type": "string", "example": "johndoe@example.com" },
+                        "phone": { "type": "string", "example": "1234567890" },
+                        "address1": { "type": "string", "example": "Address 1" },
+                        "address2": { "type": "string", "example": "Address 2" },
+                        "city": { "type": "string", "example": "City" },
+                        "state": { "type": "string", "example": "ST" },
+                        "zip": { "type": "string", "example": "123456" },
+                        "country": { "type": "string", "example": "US" }
                       }
                     }
                   }
