@@ -43,7 +43,8 @@
        "pages": [
          "api-reference/payee/get-payees",
          "api-reference/payee/get-payee",
-         "api-reference/payee/create-payee"
+         "api-reference/payee/create-payee",
+         "api-reference/payee/delete-payee"
        ]
     },
     {
