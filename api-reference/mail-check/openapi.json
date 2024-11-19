@@ -125,24 +125,42 @@
         },
         "responses": {
           "200": {
-            "description": "Mail checks created successfully.",
+            "description": "successfully mailed",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
                     "success": { "type": "boolean", "example": true },
-                    "message": { "type": "string", "example": "Mail checks created successfully." },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "mailCheckIds": {
-                          "type": "array",
-                          "items": { "type": "string" },
-                          "example": ["mailCheckId123", "mailCheckId456"]
-                        }
-                      }
-                    }
+                    "message": { "type": "string", "example": "successfully mailed" }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. User not authenticated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": { "type": "string", "example": "User not authenticated." }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden. The user has not verified their phone number or email.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": { "type": "string", "example": "Please verify your Phone Number and Email Address to enable mail Check." }
                   }
                 }
               }
@@ -157,20 +175,6 @@
                   "properties": {
                     "success": { "type": "boolean", "example": false },
                     "errorMsg": { "type": "string", "example": "The mailChecks field is required." }
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden. The check cannot be mailed.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": { "type": "boolean", "example": false },
-                    "errorMsg": { "type": "string", "example": "Sorry, Check number 123456 cannot be mailed." }
                   }
                 }
               }
