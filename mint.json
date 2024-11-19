@@ -40,7 +40,8 @@
     {
        "group": "Payee",
        "pages": [
- 
+         "api-reference/payee/get-payees",
+         "api-reference/payee/get-payee"
        ]
     },
     {
