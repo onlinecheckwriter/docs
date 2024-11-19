@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Online Check Writer API",
-    "description": "API documentation for managing payees.",
+    "description": "API documentation for payees.",
     "version": "1.0.0"
   },
   "servers": [
@@ -19,13 +19,12 @@
     "/payees": {
       "get": {
         "summary": "Retrieve all payees",
-        "description": "Retrieve a paginated list of all payee records.",
-        "tags": ["Payees"],
+        "description": "List all payee records.",
         "parameters": [
           {
             "name": "perPage",
             "in": "query",
-            "description": "Number of records to retrieve per page. Default is 10.",
+            "description": "Number of records that you want to receive in the response. By default, 10 records will be listed.",
             "required": false,
             "schema": {
               "type": "integer",
@@ -35,7 +34,7 @@
           {
             "name": "page",
             "in": "query",
-            "description": "Page number for paginated results. Default is 1.",
+            "description": "For navigating through pages. By default, the first page will be listed.",
             "required": false,
             "schema": {
               "type": "integer",
@@ -45,7 +44,7 @@
           {
             "name": "term",
             "in": "query",
-            "description": "Search term to filter payees.",
+            "description": "Filter records using any keywords.",
             "required": false,
             "schema": {
               "type": "string"
@@ -70,7 +69,7 @@
                         "meta": {
                           "type": "object",
                           "properties": {
-                            "total": { "type": "integer", "example": 100 },
+                            "total": { "type": "integer", "example": 9971 },
                             "currentPage": { "type": "integer", "example": 1 },
                             "perPage": { "type": "integer", "example": 10 }
                           }
@@ -98,6 +97,50 @@
                       }
                     }
                   }
+                },
+                "examples": {
+                  "exampleResponse": {
+                    "value": {
+                      "success": true,
+                      "data": {
+                        "meta": {
+                          "total": 99,
+                          "currentPage": 1,
+                          "perPage": 2
+                        },
+                        "payees": [
+                          {
+                            "payeeId": "RJ6qGAAxJPGE1rD",
+                            "name": "Payee Name 1",
+                            "nickName": "Payee Nick Name 1",
+                            "company": "",
+                            "email": "test@test.com",
+                            "phone": "",
+                            "address1": "address1",
+                            "address2": "address2",
+                            "city": "city",
+                            "state": "state",
+                            "zip": "123456",
+                            "country": "US"
+                          },
+                          {
+                            "payeeId": "dJM5Gbk3LQeY329",
+                            "name": "Payee Name 2",
+                            "nickName": "Payee Nick Name 2",
+                            "company": "",
+                            "email": "test@test.com",
+                            "phone": "",
+                            "address1": "address1",
+                            "address2": "address2",
+                            "city": "city",
+                            "state": "state",
+                            "zip": "123456",
+                            "country": "US"
+                          }
+                        ]
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -120,12 +163,12 @@
           {
             "bearerAuth": []
           }
-        ]
+        ],
+        "tags": ["Payees"]
       },
       "post": {
-        "summary": "Create payees",
+        "summary": "Create Payees",
         "description": "Create one or more payees.",
-        "tags": ["Payees"],
         "requestBody": {
           "description": "Payload to create new payees.",
           "required": true,
@@ -139,17 +182,17 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "name": { "type": "string", "description": "Full name of the payee." },
-                        "nickName": { "type": "string", "description": "Nickname of the payee." },
-                        "company": { "type": "string", "description": "Company name of the payee." },
-                        "email": { "type": "string", "format": "email", "description": "Email address of the payee." },
-                        "phone": { "type": "string", "description": "Phone number of the payee." },
-                        "address1": { "type": "string", "description": "Primary address line of the payee." },
-                        "address2": { "type": "string", "nullable": true, "description": "Secondary address line of the payee." },
-                        "city": { "type": "string", "description": "City of the payee." },
-                        "state": { "type": "string", "description": "State of the payee." },
-                        "zip": { "type": "string", "description": "Postal code of the payee." },
-                        "country": { "type": "string", "description": "Country of the payee." }
+                        "name": { "type": "string" },
+                        "nickName": { "type": "string" },
+                        "company": { "type": "string" },
+                        "email": { "type": "string", "format": "email" },
+                        "phone": { "type": "string" },
+                        "address1": { "type": "string" },
+                        "address2": { "type": "string", "nullable": true },
+                        "city": { "type": "string" },
+                        "state": { "type": "string" },
+                        "zip": { "type": "string" },
+                        "country": { "type": "string" }
                       },
                       "required": ["name"]
                     }
@@ -168,7 +211,7 @@
                   "type": "object",
                   "properties": {
                     "success": { "type": "boolean", "example": true },
-                    "message": { "type": "string", "example": "Successfully created." },
+                    "message": { "type": "string", "example": "Successfully created" },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -194,13 +237,39 @@
                         }
                       }
                     }
+                  },
+                  "examples": {
+                    "successResponse": {
+                      "value": {
+                        "success": true,
+                        "message": "Successfully created",
+                        "data": {
+                          "payees": [
+                            {
+                              "payeeId": "1ZoVelyDaQj8pwc",
+                              "name": "New Payee",
+                              "nickName": "New Payee Nickname",
+                              "company": "",
+                              "email": "test@tes.com",
+                              "phone": "",
+                              "address1": "address1",
+                              "address2": "address1",
+                              "city": "city",
+                              "state": "state",
+                              "zip": "123345",
+                              "country": "US"
+                            }
+                          ]
+                        }
+                      }
+                    }
                   }
                 }
               }
             }
           },
           "422": {
-            "description": "Validation failed or duplicate payee found.",
+            "description": "Unprocessable Entity. Validation failed or duplicate payee found.",
             "content": {
               "application/json": {
                 "schema": {
@@ -209,6 +278,118 @@
                     "success": { "type": "boolean", "example": false },
                     "errorMsg": { "type": "string" },
                     "payeeId": { "type": "string", "nullable": true }
+                  }
+                },
+                "examples": {
+                  "validationFailure": {
+                    "value": {
+                      "success": false,
+                      "errorMsg": "The name field is required."
+                    }
+                  },
+                  "duplicatePayee": {
+                    "value": {
+                      "success": false,
+                      "errorMsg": "Duplicate payee on item 1",
+                      "payeeId": "RJ6qGAAxJPGE1rD"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request payload.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "message": { "type": "string", "example": "Invalid request payload." }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Unauthenticated." }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Payees"]
+      }
+    },
+    "/payees/{payeeId}": {
+      "get": {
+        "summary": "Retrieve a payee",
+        "description": "Retrieve details of a specific payee by ID.",
+        "tags": ["Payees"],
+        "parameters": [
+          {
+            "name": "payeeId",
+            "in": "path",
+            "description": "The ID of the payee to retrieve.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with payee details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string", "example": "RJ6qGAAxJPGE1rD" },
+                        "name": { "type": "string", "example": "John Doe" },
+                        "nickName": { "type": "string", "example": "JD" },
+                        "company": { "type": "string", "example": "Acme Inc." },
+                        "email": { "type": "string", "example": "johndoe@example.com" },
+                        "phone": { "type": "string", "example": "1234567890" },
+                        "address1": { "type": "string", "example": "123 Elm Street" },
+                        "address2": { "type": "string", "example": "Suite 456" },
+                        "city": { "type": "string", "example": "Metropolis" },
+                        "state": { "type": "string", "example": "CA" },
+                        "zip": { "type": "string", "example": "12345" },
+                        "country": { "type": "string", "example": "USA" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Payee not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": { "type": "string", "example": "This payee not found." }
                   }
                 }
               }
