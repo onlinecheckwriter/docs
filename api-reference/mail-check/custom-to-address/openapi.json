@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Online Check Writer API",
-    "description": "API documentation for retrieving all custom 'from' addresses.",
+    "description": "API documentation for managing custom 'to' addresses.",
     "version": "1.0.0"
   },
   "servers": [
@@ -16,11 +16,11 @@
     }
   ],
   "paths": {
-    "/customFromAddresses": {
+    "/customToAddresses": {
       "get": {
-        "summary": "Retrieve All Custom From Addresses",
-        "description": "Fetch a list of all custom 'from' address records.",
-        "tags": ["Custom From Addresses"],
+        "summary": "Retrieve All Custom To Addresses",
+        "description": "Fetch a list of all custom 'to' address records with optional pagination.",
+        "tags": ["Custom To Addresses"],
         "parameters": [
           {
             "name": "perPage",
@@ -47,7 +47,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Custom 'from' addresses retrieved successfully.",
+            "description": "Custom 'to' addresses retrieved successfully.",
             "content": {
               "application/json": {
                 "schema": {
@@ -69,7 +69,7 @@
                             "type": "object",
                             "properties": {
                               "id": { "type": "string", "example": "5EJy7VeBQGzn1m3" },
-                              "name": { "type": "string", "example": "John" },
+                              "name": { "type": "string", "example": "John Doe" },
                               "companyName": { "type": "string", "nullable": true, "example": "Company A" },
                               "addressLine1": { "type": "string", "example": "Address 1" },
                               "addressLine2": { "type": "string", "nullable": true, "example": "Address 2" },
@@ -77,8 +77,8 @@
                               "state": { "type": "string", "example": "ST" },
                               "zip": { "type": "string", "example": "123465" },
                               "phone": { "type": "string", "nullable": true, "example": "" },
-                              "email": { "type": "string", "nullable": true, "example": "example@test.com" },
-                              "note": { "type": "string", "nullable": true, "example": "" }
+                              "email": { "type": "string", "nullable": true, "example": "john.doe@example.com" },
+                              "note": { "type": "string", "nullable": true, "example": "Note." }
                             }
                           }
                         }
@@ -97,29 +97,29 @@
                         "addresses": [
                           {
                             "id": "5EJy7VeBQGzn1m3",
-                            "name": "John",
-                            "companyName": "Company Name",
+                            "name": "John Doe",
+                            "companyName": "Company A",
                             "addressLine1": "Address 1",
                             "addressLine2": "Address 2",
                             "city": "City",
                             "state": "ST",
                             "zip": "123456",
                             "phone": "",
-                            "email": "example@example.com",
-                            "note": ""
+                            "email": "john.doe@example.com",
+                            "note": "Note."
                           },
                           {
                             "id": "ZqRmA345OegdoLl",
-                            "name": "John1",
-                            "companyName": "Company Name 1",
+                            "name": "Jane Smith",
+                            "companyName": "Company B",
                             "addressLine1": "Address 11",
-                            "addressLine2": "Address 21",
+                            "addressLine2": "",
                             "city": "City",
                             "state": "ST",
-                            "zip": "123456",
-                            "phone": "123456789",
-                            "email": "",
-                            "note": ""
+                            "zip": "123465",
+                            "phone": "",
+                            "email": "jane.smith@acme.com",
+                            "note": "Main office address."
                           }
                         ]
                       }
@@ -150,11 +150,11 @@
         ]
       },
       "post": {
-        "summary": "Create a Custom From Address",
-        "description": "Create a custom 'from' address with required and optional parameters.",
-        "tags": ["Custom From Addresses"],
+        "summary": "Create a Custom To Address",
+        "description": "Create a new custom 'to' address.",
+        "tags": ["Custom To Addresses"],
         "requestBody": {
-          "description": "Payload to create a custom 'from' address.",
+          "description": "Payload to create a new custom 'to' address.",
           "required": true,
           "content": {
             "application/json": {
@@ -163,59 +163,70 @@
                 "properties": {
                   "name": {
                     "type": "string",
-                    "description": "The name associated with the address. Must be no longer than 50 characters.",
+                    "description": "Name of the recipient.",
+                    "maxLength": 50,
                     "example": "John Doe"
                   },
                   "companyName": {
                     "type": "string",
-                    "description": "The company name associated with the address. Optional and must be no longer than 50 characters.",
+                    "description": "Company name of the recipient.",
+                    "maxLength": 50,
+                    "nullable": true,
                     "example": "Company A"
                   },
                   "addressLine1": {
                     "type": "string",
-                    "description": "The first line of the address. Must be no longer than 100 characters.",
+                    "description": "First line of the address.",
+                    "maxLength": 100,
                     "example": "Address 1"
                   },
                   "addressLine2": {
                     "type": "string",
-                    "description": "The second line of the address. Optional and must be no longer than 100 characters.",
+                    "description": "Second line of the address.",
+                    "maxLength": 100,
+                    "nullable": true,
                     "example": "Address 2"
                   },
                   "city": {
                     "type": "string",
-                    "description": "The city of the address. Must be no longer than 100 characters.",
+                    "description": "City of the address.",
+                    "maxLength": 100,
                     "example": "City"
                   },
                   "state": {
                     "type": "string",
-                    "description": "The state of the address. Must be a 2-letter state short-name code.",
+                    "description": "State code (2-letter abbreviation).",
+                    "maxLength": 2,
                     "example": "ST"
                   },
                   "zip": {
                     "type": "string",
-                    "description": "The postal code of the address. Must be no longer than 15 characters.",
-                    "example": "123456"
+                    "description": "Zip code of the address.",
+                    "maxLength": 15,
+                    "example": "123345"
                   },
                   "phone": {
                     "type": "string",
+                    "description": "Phone number of the recipient.",
+                    "maxLength": 15,
                     "nullable": true,
-                    "description": "The phone number associated with the address. Optional and must be no longer than 15 characters.",
-                    "example": ""
+                    "example": "1234567890"
                   },
                   "email": {
                     "type": "string",
+                    "description": "Email address of the recipient.",
                     "nullable": true,
-                    "description": "The email address associated with the address. Optional and must be no longer than 100 characters.",
-                    "example": "example@domain.com"
+                    "example": "john.doe@example.com"
                   },
                   "note": {
                     "type": "string",
+                    "description": "An internal note for the address.",
+                    "maxLength": 200,
                     "nullable": true,
-                    "description": "An internal note that identifies this address. Optional and must be no longer than 200 characters.",
-                    "example": "This is the billing address for Company A."
+                    "example": "Note."
                   }
                 },
-                "required": ["name", "addressLine1", "addressLine2", "city", "state", "zip"]
+                "required": ["name", "addressLine1", "city", "state", "zip"]
               },
               "example": {
                 "name": "John Doe",
@@ -225,16 +236,16 @@
                 "city": "City",
                 "state": "ST",
                 "zip": "123456",
-                "phone": "",
-                "email": "example@domain.com",
-                "note": "This is the billing address for Company A."
+                "phone": "1234567890",
+                "email": "john.doe@example.com",
+                "note": "Note."
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "Custom 'from' address created successfully.",
+            "description": "Custom 'to' address created successfully.",
             "content": {
               "application/json": {
                 "schema": {
@@ -244,17 +255,86 @@
                     "data": {
                       "type": "object",
                       "properties": {
-                        "id": { "type": "string", "example": "5EJy7VeBQGzn1m3" },
-                        "name": { "type": "string", "example": "John Doe" },
-                        "companyName": { "type": "string", "example": "Company A" },
-                        "addressLine1": { "type": "string", "example": "Address 1" },
-                        "addressLine2": { "type": "string", "example": "Address 2" },
-                        "city": { "type": "string", "example": "City" },
-                        "state": { "type": "string", "example": "ST" },
-                        "zip": { "type": "string", "example": "123456" },
-                        "phone": { "type": "string", "example": "" },
-                        "email": { "type": "string", "example": "example@domain.com" },
-                        "note": { "type": "string", "example": "This is the billing address for Company A." }
+                        "id": {
+                          "type": "string",
+                          "description": "Encrypted ID of the custom 'to' address.",
+                          "example": "5EJy7VeBQGzn1m3"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Name of the recipient.",
+                          "example": "John Doe"
+                        },
+                        "companyName": {
+                          "type": "string",
+                          "description": "Company name of the recipient.",
+                          "nullable": true,
+                          "example": "Company A"
+                        },
+                        "addressLine1": {
+                          "type": "string",
+                          "description": "First line of the address.",
+                          "example": "Address 1"
+                        },
+                        "addressLine2": {
+                          "type": "string",
+                          "description": "Second line of the address.",
+                          "nullable": true,
+                          "example": "Address 2"
+                        },
+                        "city": {
+                          "type": "string",
+                          "description": "City of the address.",
+                          "example": "City"
+                        },
+                        "state": {
+                          "type": "string",
+                          "description": "State code (2-letter abbreviation).",
+                          "example": "ST"
+                        },
+                        "zip": {
+                          "type": "string",
+                          "description": "Zip code of the address.",
+                          "example": "123456"
+                        },
+                        "phone": {
+                          "type": "string",
+                          "description": "Phone number of the recipient.",
+                          "nullable": true,
+                          "example": "1234567890"
+                        },
+                        "email": {
+                          "type": "string",
+                          "description": "Email address of the recipient.",
+                          "nullable": true,
+                          "example": "john.doe@example.com"
+                        },
+                        "note": {
+                          "type": "string",
+                          "description": "An internal note for the address.",
+                          "nullable": true,
+                          "example": "Note."
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "successResponse": {
+                    "value": {
+                      "success": true,
+                      "data": {
+                        "id": "5EJy7VeBQGzn1m3",
+                        "name": "John Doe",
+                        "companyName": "Company A",
+                        "addressLine1": "Address 1",
+                        "addressLine2": "Address 2",
+                        "city": "City",
+                        "state": "ST",
+                        "zip": "123456",
+                        "phone": "1234567890",
+                        "email": "john.doe@example.com",
+                        "note": "Note."
                       }
                     }
                   }
@@ -263,20 +343,14 @@
             }
           },
           "422": {
-            "description": "Validation failed or duplicate address detected.",
+            "description": "Validation failed or duplicate address.",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
                     "success": { "type": "boolean", "example": false },
-                    "errorMsg": { "type": "string", "example": "Validation failed for the address fields." },
-                    "customFromAddressId": {
-                      "type": "string",
-                      "nullable": true,
-                      "description": "The ID of the existing address if the input matches a duplicate.",
-                      "example": "5EJy7VeBQGzn1m3"
-                    }
+                    "errorMsg": { "type": "string", "example": "Validation failed for address input." }
                   }
                 },
                 "examples": {
@@ -286,11 +360,11 @@
                       "errorMsg": "The name field is required."
                     }
                   },
-                  "duplicateAddressError": {
+                  "duplicateAddress": {
                     "value": {
                       "success": false,
                       "errorMsg": "This address already exists.",
-                      "customFromAddressId": "5EJy7VeBQGzn1m3"
+                      "customToAddressId": "5EJy7VeBQGzn1m3"
                     }
                   }
                 }
@@ -318,17 +392,17 @@
         ]
       }
     },
-    "/customFromAddresses/{customFromAddressId}": {
+    "/customToAddresses/{customToAddressId}": {
       "get": {
-        "summary": "Retrieve a Single Custom From Address",
-        "description": "Fetch details of a single custom 'from' address by its ID.",
-        "tags": ["Custom From Addresses"],
+        "summary": "Retrieve a Custom To Address",
+        "description": "Fetch the details of a single custom 'to' address using its unique ID.",
+        "tags": ["Custom To Addresses"],
         "parameters": [
           {
-            "name": "customFromAddressId",
+            "name": "customToAddressId",
             "in": "path",
             "required": true,
-            "description": "The ID of the custom 'from' address to retrieve.",
+            "description": "The ID of the custom 'to' address to retrieve.",
             "schema": {
               "type": "string",
               "example": "5EJy7VeBQGzn1m3"
@@ -337,7 +411,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Custom 'from' address retrieved successfully.",
+            "description": "Custom 'to' address retrieved successfully.",
             "content": {
               "application/json": {
                 "schema": {
@@ -348,18 +422,51 @@
                       "type": "object",
                       "properties": {
                         "id": { "type": "string", "example": "5EJy7VeBQGzn1m3" },
-                        "name": { "type": "string", "example": "John" },
+                        "name": { "type": "string", "example": "John Doe" },
                         "companyName": { "type": "string", "nullable": true, "example": "Company A" },
                         "addressLine1": { "type": "string", "example": "Address 1" },
-                        "addressLine2": { "type": "string", "example": "Address 2" },
+                        "addressLine2": { "type": "string", "nullable": true, "example": "Address 2" },
                         "city": { "type": "string", "example": "City" },
                         "state": { "type": "string", "example": "ST" },
                         "zip": { "type": "string", "example": "123456" },
                         "phone": { "type": "string", "nullable": true, "example": "" },
-                        "email": { "type": "string", "nullable": true, "example": "example@test.com" },
-                        "note": { "type": "string", "nullable": true, "example": "" }
+                        "email": { "type": "string", "nullable": true, "example": "john.doe@example.com" },
+                        "note": { "type": "string", "nullable": true, "example": "Note." }
                       }
                     }
+                  }
+                },
+                "examples": {
+                  "exampleResponse": {
+                    "value": {
+                      "success": true,
+                      "data": {
+                        "id": "5EJy7VeBQGzn1m3",
+                        "name": "John Doe",
+                        "companyName": "Company A",
+                        "addressLine1": "Address 1",
+                        "addressLine2": "Address 2",
+                        "city": "City",
+                        "state": "ST",
+                        "zip": "123456",
+                        "phone": "",
+                        "email": "john.doe@example.com",
+                        "note": "Note."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Unauthenticated." }
                   }
                 }
               }
@@ -374,19 +481,6 @@
                   "properties": {
                     "success": { "type": "boolean", "example": false },
                     "errorMsg": { "type": "string", "example": "Address not found" }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized. Missing or invalid token.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": { "type": "string", "example": "Unauthenticated." }
                   }
                 }
               }
