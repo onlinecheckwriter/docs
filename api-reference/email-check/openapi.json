@@ -112,6 +112,19 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthorized. Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Unauthenticated." }
+                  }
+                }
+              }
+            }
+          },
           "403": {
             "description": "Forbidden. User email or phone number is not verified.",
             "content": {
