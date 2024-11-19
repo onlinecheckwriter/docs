@@ -72,7 +72,7 @@
                           "properties": {
                             "total": { "type": "integer", "example": 100 },
                             "currentPage": { "type": "integer", "example": 1 },
-                            "perPage": { "type": "integer", "example": 10 }
+                            "perPage": { "type": "integer", "example": 1 }
                           }
                         },
                         "payees": {
