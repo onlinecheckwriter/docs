@@ -55,6 +55,7 @@
          "api-reference/check/get-checks",
          "api-reference/check/get-check",
          "api-reference/check/create-check",
+         "api-reference/check/update-check",
          "api-reference/email-check/create",
          "api-reference/check/print-checks",
          "api-reference/check/delete-check"

@@ -574,6 +574,180 @@
         ],
         "tags": ["Checks"]
       },
+      "put": {
+        "summary": "Update a check",
+        "description": "Update details of an existing check.",
+        "tags": ["Checks"],
+        "parameters": [
+          {
+            "name": "checkId",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the check to update.",
+            "schema": {
+              "type": "string",
+              "example": "RJ6qGAyPQzGE1rD"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Payload to update check details.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "bankAccountId": {
+                    "type": "string",
+                    "description": "Must be a bank account ID."
+                  },
+                  "payeeId": {
+                    "type": "string",
+                    "description": "Must be a payee ID. Optional if `noPayee` is true."
+                  },
+                  "categoryId": {
+                    "type": "string",
+                    "nullable": true,
+                    "description": "Category ID, if applicable."
+                  },
+                  "serialNumber": {
+                    "type": "string",
+                    "description": "Custom serial number for the check."
+                  },
+                  "issueDate": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Issue date of the check."
+                  },
+                  "amount": {
+                    "type": "number",
+                    "description": "Amount of the check. Required unless `noAmount` is true."
+                  },
+                  "memo": {
+                    "type": "string",
+                    "description": "Memo for the check."
+                  },
+                  "note": {
+                    "type": "string",
+                    "description": "Internal note for the check."
+                  },
+                  "accountNumber": {
+                    "type": "string",
+                    "description": "Account number associated with the check."
+                  },
+                  "invoiceNumber": {
+                    "type": "string",
+                    "description": "Invoice number associated with the check."
+                  },
+                  "noSign": {
+                    "type": "boolean",
+                    "description": "If true, creates the check without a signature. Defaults to false."
+                  },
+                  "noAmount": {
+                    "type": "boolean",
+                    "description": "If true, creates the check without an amount. Defaults to false."
+                  },
+                  "noDate": {
+                    "type": "boolean",
+                    "description": "If true, creates the check without a date. Defaults to false."
+                  },
+                  "noPayee": {
+                    "type": "boolean",
+                    "description": "If true, creates the check without a payee. Defaults to false."
+                  }
+                },
+                "required": ["bankAccountId"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Check updated successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "message": { "type": "string", "example": "Successfully updated" },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "checkId": { "type": "string", "example": "RJ6qGAyPQzGE1rD" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Permission denied.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": {
+                      "type": "string",
+                      "example": "You do not have permission to edit this cheque."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Check not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": { "type": "string", "example": "This check not found" }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation failed or invalid input.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": false },
+                    "errorMsg": { "type": "string", "example": "The bank account id field is required." }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. Missing or invalid token.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { "type": "string", "example": "Unauthenticated." }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
       "delete": {
         "summary": "Delete a check",
         "description": "Permanently deletes a check.",
